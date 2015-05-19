@@ -33,10 +33,10 @@ module.exports = function(passport) {
     // =========================================================================
     // LOCAL SIGNUP ============================================================
     // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
+    // we are using named strategies since we have one for login and one for signUp
     // by default, if there was no name, it would just be called 'local'
 
-    passport.use('local-signup', new LocalStrategy({
+    passport.use('local-signUp', new LocalStrategy({
             //ToDo add first name + last name
             // by default, local strategy uses username and password, we will override with email
             usernameField : 'email',
@@ -87,7 +87,7 @@ module.exports = function(passport) {
     // =========================================================================
     // LOCAL LOGIN =============================================================
     // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
+    // we are using named strategies since we have one for login and one for signUp
     // by default, if there was no name, it would just be called 'local'
 
     passport.use('local-login', new LocalStrategy({
