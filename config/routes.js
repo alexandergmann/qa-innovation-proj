@@ -24,9 +24,7 @@ module.exports = function(app, passport) {
     // process the login form
     // app.post('/login', do all our passport stuff here);
     // process the login form
-    app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/', // redirect back to the signUp page if there is an error
+    app.post('/login', passport.authenticate('login', {
         failureFlash : true // allow flash messages
     }));
 
@@ -43,9 +41,9 @@ module.exports = function(app, passport) {
     // process the signUp form
     // app.post('/signUp', do all our passport stuff here);
     // process the signUp form
-    app.post('/signUp', passport.authenticate('local-signUp', {
+    app.post('/signUp', passport.authenticate('signUp', {
         successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/', // redirect back to the signUp page if there is an error
+        failureRedirect : '/index', // redirect back to the signUp page if there is an error
         failureFlash : true // allow flash messages
     }));
 
