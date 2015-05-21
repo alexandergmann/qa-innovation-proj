@@ -8,7 +8,7 @@ module.exports = function(app, passport) {
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function(req, res) {
-        res.render('index.ejs'); // load the index.ejs file
+        res.render('index.ejs', { errorMessage: req.flash('errorMessage')}); // load the index.ejs file
     });
 
     // =====================================
@@ -21,12 +21,23 @@ module.exports = function(app, passport) {
     //    res.render('home.ejs', { message: req.flash('loginMessage') });
     //});
 
+    app.get('/login', function(req, res) {
+        res.render('index.ejs');
+    });
+
     // process the login form
     // app.post('/login', do all our passport stuff here);
     // process the login form
     app.post('/login', passport.authenticate('login', {
+        successRedirect : '/', // redirect to the secure profile section
+        failureRedirect : '/', // redirect back to the signUp page if there is an error
         failureFlash : true // allow flash messages
     }));
+
+    //app.post('/login', passport.authenticate('login', {
+    //    successRedirect : '/signedInIndex',
+    //    failureRedirect : '/'
+    //}));
 
     // =====================================
     // SIGNUP ==============================
@@ -42,9 +53,8 @@ module.exports = function(app, passport) {
     // app.post('/signUp', do all our passport stuff here);
     // process the signUp form
     app.post('/signUp', passport.authenticate('signUp', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/index', // redirect back to the signUp page if there is an error
-        failureFlash : true // allow flash messages
+        successRedirect : '/login', // redirect to the secure profile section
+        failureRedirect : '/' // redirect back to the signUp page if there is an error
     }));
 
     // =====================================

@@ -1,27 +1,20 @@
 /**
+ * Created by alexander.mann on 5/21/2015.
+ */
+/**
  * Created by alexander.mann on 5/19/2015.
  */
 
 //var app = angular.module('QAFlightPicker');
-app.controller('LoginController', function($scope,$state, $http) {
-
-    $('#dp1').fdatepicker({
-        format: 'mm-dd-yyyy'
-    });
-
+app.controller('SignUpController', function($scope,$state, $http) {
     var self = this;
 
-    this.signUp = function () {
-        $state.go('signUp');
+    this.login = function () {
+        $state.go('login');
     };
 
-    this.postLogin = function(){
+    this.postSignUp = function(){
         console.log(self.password);
-        console.log(self.email);
-        var formData = {
-            'email': self.email,
-            'password': self.password
-        };
 
         if(self.email == null || self.password == null)
         {
@@ -31,7 +24,7 @@ app.controller('LoginController', function($scope,$state, $http) {
         {
             $http(
                 {
-                    url: '/login',
+                    url: '/signUp',
                     method: "POST",
                     headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     transformRequest: function(obj) {
@@ -43,7 +36,7 @@ app.controller('LoginController', function($scope,$state, $http) {
                     data: {email: self.email, password: self.password}
                 })
                 .success(function(info) {
-                    console.log(info);
+                    console.log(info.satus);
                     self.errorMessage ="this works";
                 })
                 .error(function(req) {

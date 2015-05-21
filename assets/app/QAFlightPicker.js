@@ -1,17 +1,20 @@
 /**
  * Created by alexander.mann on 5/12/2015.
  */
+
 var app = angular.module('QAFlightPicker', [
     'ui.router',
     'mm.foundation'
-    ]);
+]);
+
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider
         .state('login', {
             url: '/',
-            templateUrl: '/assets/app/login/login.html'
+            templateUrl: '/assets/app/login/login.html',
+            controller: 'LoginController as login'
         })
         .state('logout', {
             url:'/home',
@@ -19,7 +22,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('signUp', {
             url: '/signUp',
-            templateUrl: '/assets/app/signUp/signUp.html'
+            templateUrl: '/assets/app/signUp/signUp.html',
+            controller: 'SignUpController as signUp'
         })
         .state('/myitineraries', {
             url: 'a',
@@ -32,6 +36,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('logging', {
             url: '/login',
             templateUrl: '/assets/app/login/login.html'
+        })
+        .state('search', {
+            url: '/ss',
+            templateUrl: '/assets/app/flightSearch/flightSearch.html'
         });
 
         //    .state('userInfo', {
@@ -44,29 +52,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
        //        templateUrl: 'assets/app/home/userItineraries.html',
        //        controller: 'UserItinerariesController as userItineraries'
        //    })
-    });
-
-app.controller('LoginController', function($scope,$state, $http) {
-    var self = this;
-
-    this.signUp = function () {
-        $state.go('signUp');
-    };
-
-    this.postLogin = function(){
-        console.log(self.password);
-        console.log(self.email);
-        $http(
-        {
-            url: '/',
-            method: "POST",
-            data: {email: self.email, password: self.password}
-        })
-            .error(function(result) {
-                self.errorMessage=result;
-            });
-    };
 });
+
 
 //app.factory('User', function ($resource) {
 //    return $resource('/auth/users/:id/', {},
@@ -136,4 +123,3 @@ app.controller('LoginController', function($scope,$state, $http) {
 //    }
 //});
 //
-//window.app = app;
