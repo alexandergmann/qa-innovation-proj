@@ -15,6 +15,7 @@ app.controller('SignUpController', function($scope,$state, $http) {
 
     this.postSignUp = function(){
         console.log(self.password);
+        console.log(self.email);
 
         if(self.email == null || self.password == null)
         {
@@ -22,7 +23,9 @@ app.controller('SignUpController', function($scope,$state, $http) {
         }
         else
         {
-            $http(
+            var $home = $scope;
+
+            var $a = $http(
                 {
                     url: '/signUp',
                     method: "POST",
@@ -42,6 +45,10 @@ app.controller('SignUpController', function($scope,$state, $http) {
                 .error(function(req) {
                     self.errorMessage=req;
                 });
+            console.log($a);
+
+            console.log('sec');
+
         }
     };
 });

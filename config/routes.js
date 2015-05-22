@@ -30,7 +30,7 @@ module.exports = function(app, passport) {
     // process the login form
     app.post('/login', passport.authenticate('login', {
         successRedirect : '/', // redirect to the secure profile section
-        failureRedirect : '/', // redirect back to the signUp page if there is an error
+        failureRedirect : '/profile', // redirect back to the signUp page if there is an error
         failureFlash : true // allow flash messages
     }));
 
@@ -54,7 +54,7 @@ module.exports = function(app, passport) {
     // process the signUp form
     app.post('/signUp', passport.authenticate('signUp', {
         successRedirect : '/login', // redirect to the secure profile section
-        failureRedirect : '/' // redirect back to the signUp page if there is an error
+        failureRedirect : '/profile' // redirect back to the signUp page if there is an error
     }));
 
     // =====================================
