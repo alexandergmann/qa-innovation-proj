@@ -1,7 +1,7 @@
 <nav class="top-bar" data-topbar role="navigation" ng-controller="HeaderController as header">
     <ul class="title-area">
         <li class="name">
-            <h1><a ng-click="header.search()">QAFlightPicker</a></h1>
+            <h1><a class="disabled" ui-sref="#">QAFlightPicker</a></h1>
         </li>
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
         <li class="toggle-topbar menu-icon"><a ui-sref="#"><span>Menu</span></a></li>
@@ -9,8 +9,12 @@
     <section class="top-bar-section">
         <!-- Right Nav Section -->
         <ul class="right">
-            <li class="name">
-                <h3><a ng-click="header.login()">Login</a></h3>
+            <li class="has-dropdown">
+                <a ng-href="#">My Account</a>
+                <ul class="dropdown">
+                    <li><a ui-sref="#">My Itineraries</a></li>
+                    <li><a ui-sref="#">Logout</a></li>
+                </ul>
             </li>
         </ul>
     </section>

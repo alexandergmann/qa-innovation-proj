@@ -12,7 +12,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
     $stateProvider
         .state('login', {
-            url: '/',
+            url: '/login',
             templateUrl: '/assets/app/login/login.html',
             controller: 'LoginController as login'
         })
@@ -33,13 +33,10 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/profile',
             templateUrl: 'assets/app/profile/profile.html'
         })
-        .state('logging', {
-            url: '/login',
-            templateUrl: '/assets/app/login/login.html'
-        })
         .state('search', {
-            url: '/ss',
-            templateUrl: '/assets/app/flightSearch/flightSearch.html'
+            url: '/',
+            templateUrl: '/assets/app/flightSearch/flightSearch.html',
+            controller: 'SearchController as search'
         });
 
         //    .state('userInfo', {

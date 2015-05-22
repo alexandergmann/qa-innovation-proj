@@ -1,9 +1,12 @@
 /**
+ * Created by alexander.mann on 5/22/2015.
+ */
+/**
  * Created by alexander.mann on 5/19/2015.
  */
 
 //var app = angular.module('QAFlightPicker');
-app.controller('LoginController', function($scope,$state, $http) {
+app.controller('SearchController', function($scope,$state, $http) {
 
     $('#dp1').fdatepicker({
         format: 'mm-dd-yyyy'
@@ -23,7 +26,7 @@ app.controller('LoginController', function($scope,$state, $http) {
 
         if(self.email == null || self.password == null)
         {
-            self.errorMessage = "Please Enter Email and Password";
+            self.errorMessage = "Please enter an email and password";
         }
         else
         {
@@ -41,10 +44,10 @@ app.controller('LoginController', function($scope,$state, $http) {
                     data: {email: self.email, password: self.password}
                 })
                 .success(function() {
-                    $state.go('search');
+                    self.errorMessage ="Incorrect Username or Password";
                 })
                 .error(function(msg) {
-                    self.errorMessage ="Incorrect Username or Password";
+                    self.errorMessage=msg;
                 });
         }
     };

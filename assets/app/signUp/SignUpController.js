@@ -1,10 +1,6 @@
 /**
  * Created by alexander.mann on 5/21/2015.
  */
-/**
- * Created by alexander.mann on 5/19/2015.
- */
-
 //var app = angular.module('QAFlightPicker');
 app.controller('SignUpController', function($scope,$state, $http) {
     var self = this;
@@ -19,13 +15,11 @@ app.controller('SignUpController', function($scope,$state, $http) {
 
         if(self.email == null || self.password == null)
         {
-            self.errorMessage = "Please enter an email and password";
+            self.errorMessage = "Please Enter Email and Password";
         }
         else
         {
-            var $home = $scope;
-
-            var $a = $http(
+            $http(
                 {
                     url: '/signUp',
                     method: "POST",
@@ -39,16 +33,11 @@ app.controller('SignUpController', function($scope,$state, $http) {
                     data: {email: self.email, password: self.password}
                 })
                 .success(function(info) {
-                    console.log(info.satus);
-                    self.errorMessage ="this works";
+                    $state.go('login');
                 })
                 .error(function(req) {
-                    self.errorMessage=req;
+                    self.errorMessage ="Username Already Exists";
                 });
-            console.log($a);
-
-            console.log('sec');
-
         }
     };
 });

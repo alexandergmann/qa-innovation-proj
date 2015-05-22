@@ -25,12 +25,16 @@ module.exports = function(app, passport) {
         res.render('index.ejs');
     });
 
+    app.get('/loggedIn', function(req, res) {
+        res.render('loggedIn.ejs');
+    });
+
     // process the login form
     // app.post('/login', do all our passport stuff here);
     // process the login form
     app.post('/login', passport.authenticate('login', {
-        successRedirect : '/', // redirect to the secure profile section
-        failureRedirect : '/profile', // redirect back to the signUp page if there is an error
+        successRedirect : '/loggedIn', // redirect to the secure profile section
+        failureRedirect : '/stuff', // redirect back to the signUp page if there is an error
         failureFlash : true // allow flash messages
     }));
 
@@ -54,7 +58,7 @@ module.exports = function(app, passport) {
     // process the signUp form
     app.post('/signUp', passport.authenticate('signUp', {
         successRedirect : '/login', // redirect to the secure profile section
-        failureRedirect : '/profile' // redirect back to the signUp page if there is an error
+        failureRedirect : '/stuff' // redirect back to the signUp page if there is an error
     }));
 
     // =====================================
