@@ -58,7 +58,7 @@ module.exports = function(app, passport) {
     // process the signUp form
     app.post('/signUp', passport.authenticate('signUp', {
         successRedirect : '/login', // redirect to the secure profile section
-        failureRedirect : '/stuff' // redirect back to the signUp page if there is an error
+        failureRedirect : '/login' // redirect back to the signUp page if there is an error
     }));
 
     // =====================================
