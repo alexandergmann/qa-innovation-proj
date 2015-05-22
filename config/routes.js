@@ -26,7 +26,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/loggedIn', function(req, res) {
-        res.render('loggedIn.ejs');
+        res.json({user: req.user});
     });
 
     // process the login form

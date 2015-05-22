@@ -12,6 +12,10 @@ app.controller('SearchController', function($scope,$state, $http) {
         format: 'mm-dd-yyyy'
     });
 
+    $('#dp2').fdatepicker({
+        format: 'mm-dd-yyyy'
+    });
+
     var self = this;
 
     this.signUp = function () {

@@ -9,8 +9,15 @@
     <section class="top-bar-section">
         <!-- Right Nav Section -->
         <ul class="right">
-            <li class="name">
+            <li class="name" ng-show="!header.userLoggedIn()">
                 <h3><a ng-click="header.login()">Login</a></h3>
+            </li>
+            <li class="has-dropdown" ng-show="header.userLoggedIn()">
+                <a ng-href="#">My Account</a>
+                <ul class="dropdown">
+                    <li><a ui-sref="#">My Itineraries</a></li>
+                    <li><a ui-sref="#">Logout</a></li>
+                </ul>
             </li>
         </ul>
     </section>

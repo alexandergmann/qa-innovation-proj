@@ -3,16 +3,15 @@
  */
 
 //var app = angular.module('QAFlightPicker');
-app.controller('LoginController', function($scope,$state, $http) {
-
-    $('#dp1').fdatepicker({
-        format: 'mm-dd-yyyy'
-    });
-
+app.controller('LoginController', function($scope,$state, $http, userService) {
     var self = this;
 
     this.signUp = function () {
         $state.go('signUp');
+    };
+
+    this.login = function() {
+        $state.go('login');
     };
 
     this.postLogin = function(){
@@ -40,7 +39,9 @@ app.controller('LoginController', function($scope,$state, $http) {
                     },
                     data: {email: self.email, password: self.password}
                 })
-                .success(function() {
+                .success(function(user) {
+                    console.log(user);
+                    userService.user = user;
                     $state.go('search');
                 })
                 .error(function(msg) {
@@ -49,6 +50,3 @@ app.controller('LoginController', function($scope,$state, $http) {
         }
     };
 });
-
-
-

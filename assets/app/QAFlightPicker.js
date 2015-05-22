@@ -51,6 +51,14 @@ app.config(function ($stateProvider, $urlRouterProvider) {
        //    })
 });
 
+app.factory('HeaderLogin', function() {
+    var loggedIn = false;
+    return {
+        loggedIn: function() { return title; },
+        setLoggedIn: function(newLogin) { loggedIn = newLogin; }
+    };
+});
+
 
 //app.factory('User', function ($resource) {
 //    return $resource('/auth/users/:id/', {},
@@ -120,3 +128,22 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 //    }
 //});
 //
+
+
+
+
+
+
+app.factory("userService", function () {
+    return {
+        user: null
+    };
+});
+
+app.controller('header', function (userService) {
+    var self = this;
+
+    this.userLoggedIn = function(){
+        return userService.user != null;
+    };
+});
