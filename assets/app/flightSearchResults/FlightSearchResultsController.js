@@ -2,7 +2,7 @@
  * Created by alexander.mann on 6/3/2015.
  */
 //var app = angular.module('QAFlightPicker');
-app.controller('FlightSearchResultsController', function($scope,$state, $http, searchResultsService, userService) {
+app.controller('FlightSearchResultsController', function($scope,$state, $http, searchResultsService) {
     var self = this;
 
     this.sortByPrice = function (array) {
@@ -25,21 +25,24 @@ app.controller('FlightSearchResultsController', function($scope,$state, $http, s
         return (item._id == self.selectedReturningOption._id);
     };
 
-    this.bookSelectedFlights = function() {
+    this.submitFlightsToConfirm = function() {
         if (self.selectedDepartingOption == null) {
             //TODO throw error here
         } else if (self.selectedReturningOption == null && searchResultsService.returningFlights == null) {
             //TODO throw error here
         }
-
-        $http.post('/bookflight', {
-            user: userService.user,
-            numPassengers: searchResultsService.numPassengers,
-            departingFlight: self.selectedDepartingOption,
-            returningFlight: self.selectedReturningOption
-        }, {headers: {'Content-Type': 'application/json'}})
-            .success(function(data) {
-
-            });
+        searchResultsService.selectedDepartingFlight = self.selectedDepartingOption;
+        searchResultsService.selectedReturningFlight = self.selectedReturningOption;
+        $state.go('confirmationScreen');
+        //
+        //$http.post('/bookflight', {
+        //    user: userService.user,
+        //    numPassengers: searchResultsService.numPassengers,
+        //    departingFlight: self.selectedDepartingOption,
+        //    returningFlight: self.selectedReturningOption
+        //}, {headers: {'Content-Type': 'application/json'}})
+        //    .success(function(data) {
+        //
+        //    });
     };
 });

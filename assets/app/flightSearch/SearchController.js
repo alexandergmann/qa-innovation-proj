@@ -7,7 +7,6 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
     this.returningDateObject = null;
     var self = this;
     $(document).foundation();
-    searchResultsService.numPassengers = this.numPassengers;
 
     this.ints = [ 1, 2, 3, 4, 5, 6 ];
     this.airportList = {
@@ -101,7 +100,8 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
                 } else {
                     console.log("Results found");
                     searchResultsService.departingFlights = data;
-                    $state.go('flightSearchResults', {userId: user._id});
+                    searchResultsService.numPassengers = $scope.numPassengers;
+                    $state.go('flightSearchResults');
                 }
             });
     };

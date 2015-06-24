@@ -46,6 +46,11 @@ var app = angular.module('QAFlightPicker', [
                 url: '/noResults',
                 templateUrl: 'assets/app/noResults/noResults.html',
                 controller: 'NoResultsController as noResults'
+            })
+            .state('confirmationScreen', {
+                url: '/confirmation',
+                templateUrl: '/assets/app/confirmationScreen/confirmationScreen.html',
+                controller: 'ConfirmationScreenController as confirmationScreen'
             });
     });
     //.run(function ($rootScope, $document) {
@@ -81,7 +86,9 @@ app.factory("searchResultsService", function () {
     return {
         departingFlights: null,
         returningFlights: null,
-        numPassengers: null
+        numPassengers: null,
+        selectedDepartingFlight: null,
+        selectedReturningFlight: null
     };
 });
 

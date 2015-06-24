@@ -15,43 +15,6 @@
 .smallDrop {
     max-width: 20%;
 }
-
-.left-pane, .right-pane{
-    width: 50%;
-    background-color: #eee;
-    padding: 12px;
-}
-
-.left-pane{
-    float: left;
-}
-
-.right-pane{
-    float: right;
-}
-
-.flight{
-    margin-bottom: 12px;
-    border-bottom: 1px solid #ddd;
-    padding: 8px;
-    cursor: pointer;
-    background-color: #fff;
-    box-shadow: 0px 1px 1px rgba(0,0,0,0.25);
-}
-
-.flight.selected{
-    background-color: #5cb85c;
-    border-color: #4cae4c;
-    color: white;
-}
-
-.flight .title {
-    font-weight: bold;
-}
-
-.flight .subtitle{
-    font-size: 80%;
-}
 /* Styles go here */
 
 .left-pane, .right-pane{
@@ -64,6 +27,13 @@
     float: left;
 }
 
+.middle-pane{
+    vertical-align: middle;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
 .right-pane{
     float: right;
 }
@@ -89,4 +59,19 @@
 
 .flight .subtitle{
     font-size: 80%;
+}
+
+.footer{
+    margin-bottom: 0;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+
+.submitBtn {
+    line-height: 4em !important;
+}
+
+body{
+    margin-bottom: 50px;
 }
