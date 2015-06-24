@@ -34,6 +34,7 @@ app.controller('LoginController', function($scope,$state, $http, userService) {
                     data: {email: self.email, password: self.password}
                 })
                 .success(function(user) {
+                    console.log("Is this a user?");
                     console.log(user);
                     userService.user = user;
                     $state.go('search');

@@ -10,11 +10,11 @@ var mongoose = require('mongoose');
 
 // define the schema for our user model
 var itinerarySchema = mongoose.Schema({
-    userId              : Long,
-    departFlightId      : Long,
-    returnFlightId      : Long,
+    userId              : String,
+    departFlightId      : String,
+    returnFlightId      : String,
     numberOfPassengers  : Number,
-    totalPrice          : Double
+    totalPrice          : Number
 });
 
 // create the model for users and expose it to our app

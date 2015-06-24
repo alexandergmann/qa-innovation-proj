@@ -14,6 +14,24 @@ app.controller('ConfirmationScreenController', function($scope,$state, $http, se
     }
     this.totalPrice = (self.selectedDepartFlight.price * self.numPassengers) + returningTotalPrice;
 
+    this.backToResults = function() {
+        searchResultsService.selectedDepartingFlight = null;
+        searchResultsService.selectedReturningFlight = null;
 
+        $state.go('flightSearchResults');
+    };
+
+    this.saveItinerary = function() {
+        $http.post('/bookFlight', {
+            userId:               userService.user._id,
+            numPassengers:      self.numPassengers,
+            departingFlightId:    self.selectedDepartFlight._id,
+            returningFlightId:    self.selectedReturnFlight._id,
+            totalPrice:         self.totalPrice
+        }, {headers: {'Content-Type': 'application/json'}})
+            .success(function(data) {
+                console.log("Successfully Booked!!!!");
+            });
+    };
 
 });

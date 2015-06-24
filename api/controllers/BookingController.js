@@ -2,20 +2,16 @@
  * Created by alexander.mann on 6/22/2015.
  */
 
-
+var Itinerary            = require('../models/itinerary');
 module.exports.bookFlight = function(req, res) {
-    var returningTotalPrice = 0;
-    if(req.returningFlight == null) {
-        returningTotalPrice = req.returningFlight.price * req.numPassengers;
-    }
-    var totalPrice = (req.departingFlight * req.numPassengers) + returningTotalPrice;
-    
+
+    var returningFlightId = req.returningFlightId || null;
     var newItinerary = new Itinerary({
-        userId:             req.user._id,
-        departFlightId:     req.departingFlight._id,
-        returnFlightId:     req.returningFlight._id,
+        userId:             req.userId,
+        departFlightId:     req.departingFlightId,
+        returnFlightId:     returningFlightId,
         numberOfPassengers: req.numPassengers,
-        totalPrice:         totalPrice
+        totalPrice:         req.totalPrice
     });
 
     newItinerary.save(function (err, savedIt) {

@@ -34,15 +34,5 @@ app.controller('FlightSearchResultsController', function($scope,$state, $http, s
         searchResultsService.selectedDepartingFlight = self.selectedDepartingOption;
         searchResultsService.selectedReturningFlight = self.selectedReturningOption;
         $state.go('confirmationScreen');
-        //
-        //$http.post('/bookflight', {
-        //    user: userService.user,
-        //    numPassengers: searchResultsService.numPassengers,
-        //    departingFlight: self.selectedDepartingOption,
-        //    returningFlight: self.selectedReturningOption
-        //}, {headers: {'Content-Type': 'application/json'}})
-        //    .success(function(data) {
-        //
-        //    });
     };
 });

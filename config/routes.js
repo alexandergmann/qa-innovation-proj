@@ -23,7 +23,7 @@ module.exports = function(app, passport) {
     // =====================================
     app.post('/login', passport.authenticate('login', {
         successRedirect : '/loggedIn', // redirect to the secure profile section
-        failureRedirect : '/', // redirect back to the signUp page if there is an error
+        failureRedirect : 'notCorrect', // redirect back to the signUp page if there is an error
         failureFlash : true // allow flash messages
     }));
 
@@ -60,7 +60,7 @@ module.exports = function(app, passport) {
     // =====================================
     // Book Flight =========================
     // =====================================
-    app.post('/bookflight', function(req, res) {
+    app.post('/bookFlight', function(req, res) {
         bookingController.bookFlight(req, res);
     })
 };
