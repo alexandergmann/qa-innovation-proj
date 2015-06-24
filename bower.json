@@ -10,14 +10,16 @@
   ],
   "dependencies": {
     "angular": "~1.4.0",
-    "angular-ui-router": "~0.2.13",
-    "angular-resource": "~1.2.16",
     "angular-foundation": "~0.6.0",
-    "foundation": "~5.5.2",
-    "font-awesome": "~4.3.0",
-    "foundation-datepicker": "~1.0.0",
+    "angular-moment": "~0.9.2",
+    "angular-resource": "~1.2.16",
+    "angular-ui-router": "~0.2.13",
     "angular-ui-notification": "~0.0.5",
-    "lodash": "~3.6.0"
+    "font-awesome": "~4.3.0",
+    "foundation": "~5.5.2",
+    "foundation-datepicker": "~1.0.0",
+    "lodash": "~3.6.0",
+    "moment": "~2.9.0"
   },
   "resolutions": {
     "angular": "~1.4.0"

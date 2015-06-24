@@ -1,35 +1,21 @@
 /**
- * Created by alexander.mann on 5/12/2015.
+ * Created by alexander.mann on 6/3/2015.
  */
-// api/models/itinerary.js
+/**
+ * Created by alexander.mann on 6/3/2015.
+ */
+// app/models/user.js
 // load the things we need
 var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
 
 // define the schema for our user model
-var userSchema = mongoose.Schema({
-
-    local            : {
-        email        : String,
-        password     : String,
-    },
-    facebook         : {
-        id           : String,
-        token        : String,
-        email        : String,
-        name         : String
-    },
-    twitter          : {
-        id           : String,
-        token        : String,
-        displayName  : String,
-        username     : String
-    },
-    google           : {
-        id           : String,
-        token        : String,
-        email        : String,
-        name         : String
-    }
-
+var itinerarySchema = mongoose.Schema({
+    userId              : Long,
+    departFlightId      : Long,
+    returnFlightId      : Long,
+    numberOfPassengers  : Number,
+    totalPrice          : Double
 });
+
+// create the model for users and expose it to our app
+module.exports = mongoose.model('Itinerary', itinerarySchema);

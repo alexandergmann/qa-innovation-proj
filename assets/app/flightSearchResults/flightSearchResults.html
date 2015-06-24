@@ -1,0 +1,48 @@
+<html ng-app="QAFlightPicker" ng-controller="FlightSearchResultsController as flightSearchResults">
+<div class="container">
+        <h1>Flights Found</h1>
+        <div class="left-pane">
+            <h4>Departing Flights</h4>
+                <div class="flight"
+                     ng-repeat="flight in flightSearchResults.departingFlights"
+                     ng-class="{ selected: flightSearchResults.isDepartingOptionSelected(flight) }"
+                     ng-click="flightSearchResults.selectedDepartingOption = flight;">
+                    <div class="title">
+                        {{ flight.departingAirportName }} <span class="fa fa-arrow-right"></span> {{ flight.destinationAirportName }}
+                    </div>
+                    <div class="subtitle">
+                        ${{ flight.price }}
+                    </div>
+                    <div class="subtitle">
+                        {{ flight.departingDate | formatAsDateDetail }}
+                    </div>
+                    <div class="subtitle">
+                        {{ flight.arrivingDate | formatAsDateDetail }}
+                    </div>
+                </div>
+        </div>
+        <div class="right-pane">
+            <h4>Arriving Flights</h4>
+            <div class="flight"
+                 ng-repeat="flight in flightSearchResults.returningFlights"
+                 ng-class="{ selected: flightSearchResults.isReturningOptionSelected(flight) }"
+                 ng-click="flightSearchResults.selectedReturningOption = flight;">
+                <div class="title">
+                    {{ flight.departingAirportName }} <span class="fa fa-arrow-right"></span> {{ flight.destinationAirportName }}
+                </div>
+                <div class="subtitle">
+                    ${{ flight.price }}
+                </div>
+                <div class="subtitle">
+                    {{ flight.departingDate | formatAsDateDetail }}
+                </div>
+                <div class="subtitle">
+                    {{ flight.arrivingDate | formatAsDateDetail }}
+                </div>
+            </div>
+        </div>
+</div>
+</html>
+
+
+

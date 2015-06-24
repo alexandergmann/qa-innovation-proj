@@ -5,134 +5,65 @@
 var app = angular.module('QAFlightPicker', [
     'ui.router',
     'mm.foundation'
-]);
+])
+    .config(function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/');
+        $stateProvider
+            .state('populateDatabase', {
+                url: '/',
+                templateUrl: '/assets/app/populateDatabase/populateDatabase.html',
+                controller: 'PopulateDatabaseController as popDbController'
+            })
+            .state('login', {
+                url: '/login',
+                templateUrl: '/assets/app/login/login.html',
+                controller: 'LoginController as login'
+            })
+            .state('logout', {
+                url:'/logout',
+                templateUrl: 'a'
+            })
+            .state('signUp', {
+                url: '/signUp',
+                templateUrl: '/assets/app/signUp/signUp.html',
+                controller: 'SignUpController as signUp'
+            })
+            .state('profile', {
+                url: '/profile',
+                templateUrl: 'assets/app/profile/profile.html'
+            })
+            .state('search', {
+                url: '/home/{userId}',
+                templateUrl: '/assets/app/flightSearch/flightSearch.html',
+                controller: 'SearchController as search'
+            })
+            .state('flightSearchResults', {
+                url: '/flightSearchResults',
+                templateUrl: 'assets/app/flightSearchResults/flightSearchResults.html',
+                controller: 'FlightSearchResultsController as flightSearchResults'
+            })
+            .state('noResults', {
+                url: '/noResults',
+                templateUrl: 'assets/app/noResults/noResults.html',
+                controller: 'NoResultsController as noResults'
+            });
+    });
+    //.run(function ($rootScope, $document) {
+    //    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
+    //        $rootScope.userId = toParams.userId || null;
+    //        $rootScope.$broadcast('userId', $rootScope.userId);
+    //    });
+    //});
 
 
-app.config(function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
-    $stateProvider
-        .state('login', {
-            url: '/login',
-            templateUrl: '/assets/app/login/login.html',
-            controller: 'LoginController as login'
-        })
-        .state('logout', {
-            url:'/home',
-            templateUrl: 'a'
-        })
-        .state('signUp', {
-            url: '/signUp',
-            templateUrl: '/assets/app/signUp/signUp.html',
-            controller: 'SignUpController as signUp'
-        })
-        .state('/myitineraries', {
-            url: 'a',
-            templateUrl: 'a'
-        })
-        .state('profile', {
-            url: '/profile',
-            templateUrl: 'assets/app/profile/profile.html'
-        })
-        .state('search', {
-            url: '/',
-            templateUrl: '/assets/app/flightSearch/flightSearch.html',
-            controller: 'SearchController as search'
-        });
 
-        //    .state('userInfo', {
-       //        url: '/m',
-       //        templateUrl: '/assets/app/home/.html',
-       //        controller: 'UserInfoController as userInfo'
-       //    })
-       //    .state('userItineraries', {
-       //        url: '/m',
-       //        templateUrl: 'assets/app/home/userItineraries.html',
-       //        controller: 'UserItinerariesController as userItineraries'
-       //    })
-});
-
-app.factory('HeaderLogin', function() {
-    var loggedIn = false;
-    return {
-        loggedIn: function() { return title; },
-        setLoggedIn: function(newLogin) { loggedIn = newLogin; }
-    };
-});
-
-
-//app.factory('User', function ($resource) {
-//    return $resource('/auth/users/:id/', {},
-//        {
-//            'update': {
-//                method: 'PUT'
-//            }
-//        });
-//});
-//
-//app.factory('Session', function ($resource) {
-//    return $resource('/auth/session/');
-//});
-//
-//
-//
-//
-//app.factory('Auth', function Auth($location, $rootScope, Session, User, $cookieStore) {
-//    $rootScope.currentUser = $cookieStore.get('user') || null;
-//    $cookieStore.remove('user');
-//
+//app.factory('HeaderLogin', function() {
+//    var loggedIn = false;
 //    return {
-//
-//        login: function(provider, user, callback) {
-//            var cb = callback || angular.noop;
-//            Session.save({
-//                provider: provider,
-//                email: user.email,
-//                password: user.password,
-//                rememberMe: user.rememberMe
-//            }, function(user) {
-//                $rootScope.currentUser = user;
-//                return cb();
-//            }, function(err) {
-//                return cb(err.data);
-//            });
-//        },
-//
-//        logout: function(callback) {
-//            var cb = callback || angular.noop;
-//            Session.delete(function(res) {
-//                    $rootScope.currentUser = null;
-//                    return cb();
-//                },
-//                function(err) {
-//                    return cb(err.data);
-//                });
-//        },
-//
-//        createUser: function(userinfo, callback) {
-//            var cb = callback || angular.noop;
-//            User.save(userinfo,
-//                function(user) {
-//                    $rootScope.currentUser = user;
-//                    return cb();
-//                },
-//                function(err) {
-//                    return cb(err.data);
-//                });
-//        },
-//
-//        currentUser: function() {
-//            Session.get(function(user) {
-//                $rootScope.currentUser = user;
-//            });
-//        }
-//    }
-//});
-//
-
-
-
-
-
+//        loggedIn: function() { return title; },
+//        setLoggedIn: function(newLogin) { loggedIn = newLogin; }
+//    };
+//}
 
 app.factory("userService", function () {
     return {
@@ -140,10 +71,30 @@ app.factory("userService", function () {
     };
 });
 
-app.controller('header', function (userService) {
-    var self = this;
+app.factory("dataPopulationService", function() {
+    return {
+        populate: null
+    };
+});
 
-    this.userLoggedIn = function(){
-        return userService.user != null;
+app.factory("searchResultsService", function () {
+    return {
+        departingFlights: null,
+        returningFlights: null,
+        numPassengers: null
+    };
+});
+
+app.filter("formatAsDate", function () {
+    return function (item) {
+        var valueAsDate = moment(item);
+        return (valueAsDate).format("MM/DD/YYYY");
+    };
+});
+
+app.filter("formatAsDateDetail", function () {
+    return function (item) {
+        var valueAsDate = moment(item);
+        return (valueAsDate).format("MMMM Do YYYY, h:mm A");
     };
 });

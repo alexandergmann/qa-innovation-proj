@@ -1,29 +1,41 @@
-<html ng-app="QAFlightPicker">
-    <div class="container">
-        <div class="columns small-6 small-offset-3">
+    <div class="container" ng-controller="SearchController as search">
+        <div class="columns small-6 small-offset-4">
             <h1>Destination and Date Information</h1>
         </div>
-        <div class="columns small-6 small-offset-3 left">
-            <h3>Flying From</h3>
-            <a  class="button" data-dropdown="drop1">Link Dropdown &raquo;</a>
-            <ul id="drop1" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
-                <li><a>Airport 1</a></li>
-                <li><a>Airport 2</a></li>
-                <li><a>Airport 3</a></li>
-            </ul>
-            <h3><span class="fa fa-calendar"></span> Departure Date</h3>
-            <input type="text" class="span2" value="02-16-2012" id="dp1" >
+        <div class="small-block-grid-4 small-offset-4">
+            <li class="columns small-6 left ">
+                <h3><span class="fa fa-plane"></span> Flying From</h3>
+                <select id="airportFrom" class="small customDrop" ng-model="search.departAirport">
+                    <option value=""></option>
+                    <option ng-repeat="departAirport in search.airportList">{{ departAirport.code }}</option>
+                </select>
+                <h3><span class="fa fa-plane"></span> Flying To</h3>
+                <select id="airportTo" class="small customDrop" ng-model="search.arriveAirport">
+                    <option value=""></option>
+                    <option ng-repeat="arriveAirport in search.airportList">{{ arriveAirport.code }}</option>
+                </select>
+                <span></span>
+                <span class="small-offset-1">
+                    <input type="radio" ng-model="search.flightType" value="roundTrip" id="fTypeRoundTrip" ng-checked="true" ng-change="search.isRoundTrip()">
+                    <label for="fTypeRoundTrip">Round Trip</label>
+                    <input type="radio" ng-model="search.flightType" value="oneWay" id="fTypeOneWay" ng-change="search.isRoundTrip()">
+                    <label for="fTypeOneWay">One Way</label>
+                </span>
+            </li>
+            <li class="columns small-6 left">
+                <h3><span class="fa fa-calendar departDP" ng-click="search.departDatePicker()"></span> Departure Date</h3>
+                <input type="text" class="departDP" value="02-16-2012" id="departDP" ng-model="search.departDate">
+                <h3 class="retDP"><span class="fa fa-calendar retDP"  ng-click="search.retDatePicker()"></span> Returning Date</h3>
+                <input type="text" class="retDP" value="02-16-2012" id="retDP" ng-model="search.retDate">
+                <label>Number of Passengers</label>
+                <select id="numPassengers" class="small smallDrop" ng-model="search.numPassengers">
+                    <option value=""></option>
+                    <option ng-repeat="num in search.ints">{{ num }}</option>
+                </select>
+                <span></span>
+            </li>
         </div>
         <div class="columns small-6 small-offset-3 right">
-            <h3>Flying To</h3>
-            <a href="2" class="button" data-dropdown="drop2">Link Dropdown &raquo;</a>
-            <ul id="drop2" class="[tiny small medium large content]f-dropdown" data-dropdown-content>
-                <li><a>Airport 1</a></li>
-                <li><a>Airport 2</a></li>
-                <li><a>Airport 3</a></li>
-            </ul>
-            <h3><span class="fa fa-calendar"></span> Returning Date</h3>
-            <input type="text" class="span2" value="02-16-2012" id="dp2" >
+            <a class="button small block" ng-click="search.submitSearch()"><span class="fi-page-search"></span>Search for Flights</a>
         </div>
     </div>
-</html>

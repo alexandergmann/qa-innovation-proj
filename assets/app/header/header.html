@@ -1,16 +1,27 @@
-<nav class="top-bar" data-topbar role="navigation" ng-controller="HeaderController as header">
+<nav class="top-bar" data-topbar role="navigation" ng-controller="HeaderController as header" ng-show="header.isDatabasePopulated()">
     <ul class="title-area">
-        <li class="name">
+        <li class="name" ng-show="header.userLoggedIn()">
             <h1><a ng-click="header.search()">QAFlightPicker</a></h1>
         </li>
+        <li class="name" ng-show="!header.userLoggedIn()">
+            <h1><a ng-click="header.login()">QAFlightPicker</a></h1>
+        </li>
+
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-        <li class="toggle-topbar menu-icon"><a ui-sref="#"><span>Menu</span></a></li>
+        <li class="name" ng-show="header.userLoggedIn()">
+            <h1><a ng-click="header.search()">asdffasfd</a></h1>
+        </li>
     </ul>
     <section class="top-bar-section">
+        <!-- Left Nav Section -->
+        <ul class="left">
+            <li class="name"><a ng-click="header.search()">Search For Fligths</a>
+            </li>
+        </ul>
         <!-- Right Nav Section -->
         <ul class="right">
             <li class="name" ng-show="!header.userLoggedIn()">
-                <h3><a ng-click="header.login()">Login</a></h3>
+                <a ng-click="header.login()">Login</a>
             </li>
             <li class="has-dropdown" ng-show="header.userLoggedIn()">
                 <a ng-href="#">My Account</a>

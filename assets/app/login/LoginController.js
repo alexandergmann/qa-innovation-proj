@@ -1,7 +1,6 @@
 /**
  * Created by alexander.mann on 5/19/2015.
  */
-
 //var app = angular.module('QAFlightPicker');
 app.controller('LoginController', function($scope,$state, $http, userService) {
     var self = this;
@@ -15,11 +14,6 @@ app.controller('LoginController', function($scope,$state, $http, userService) {
     };
 
     this.postLogin = function(){
-        var formData = {
-            'email': self.email,
-            'password': self.password
-        };
-
         if(self.email == null || self.password == null)
         {
             self.errorMessage = "Please Enter Email and Password";
