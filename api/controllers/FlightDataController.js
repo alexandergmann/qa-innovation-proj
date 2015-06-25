@@ -56,7 +56,7 @@ module.exports.populateDB = function(req, res) {
         // loop to add flights for each airport
         _.forEach(airportsList, function(departAirport) {
             // loop to add 6 flights total for each day at each airport
-            for (var k = 0; k < 6; k++) {
+            for (var k = 0; k < 12; k++) {
                 // Stuff for flight info and date
                 var day = today.getDate() + i;
                 var departHour = _.sample(hoursOfDay);

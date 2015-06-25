@@ -1,8 +1,9 @@
 /**
  * Created by alexander.mann on 5/22/2015.
  */
-app.controller('SearchController', function($scope,$state, $http, searchResultsService) {
+app.controller('SearchController', function($scope,$state, $http, searchResultsService, userService) {
     this.flightType = "roundTrip";
+    searchResultsService.roundTrip = true;
     this.departDateObject = null;
     this.returningDateObject = null;
     var self = this;
@@ -53,8 +54,10 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
     this.isRoundTrip = function() {
         if (self.flightType == "roundTrip") {
             $('.retDP').css('visibility', 'visible');
+            searchResultsService.roundTrip = true;
         } else {
             $('.retDP').css('visibility', 'hidden');
+            searchResultsService.roundTrip = false;
         }
     };
 
@@ -73,18 +76,21 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
             arrivingAirport: self.departAirport
         };
 
-        if(self.flightType == "roundTrip") {
+        if(searchResultsService.roundTrip) {
             $http.post('/searchForFlights', queryObject, {headers: {'Content-Type': 'application/json'}})
                 .success(function (data) {
                     console.log("Search is successful");
-                    if(data == null) {
+                    if(data.length == 0) {
                         console.log("No results found");
-                        $state.go('noResults');
                     } else {
                         console.log("Results found");
+                        console.log(searchResultsService.returningFlights);
                         searchResultsService.returningFlights = data;
                     }
                 });
+
+        } else {
+            searchResultsService.returningFlights = 1;
         }
         queryObject = {
             dateToSearch: self.departDateObject,
@@ -94,14 +100,14 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
         $http.post('/searchForFlights', queryObject, {headers: {'Content-Type': 'application/json'}})
             .success(function (data) {
                 console.log("Search is successful");
-                if(data == null) {
+                if(data.length == 0 || searchResultsService.returningFlights == null) {
                     console.log("No results found");
                     $state.go('noResults');
                 } else {
                     console.log("Results found");
                     searchResultsService.departingFlights = data;
                     searchResultsService.numPassengers = $scope.numPassengers;
-                    $state.go('flightSearchResults');
+                    $state.go('flightSearchResults', {userId: userService.user._id});
                 }
             });
     };

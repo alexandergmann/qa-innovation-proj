@@ -12,7 +12,6 @@ var userSchema = mongoose.Schema({
     local            : {
         email        : String,
         password     : String,
-        connected    : {type: Boolean, default: false}
     }
 });
 

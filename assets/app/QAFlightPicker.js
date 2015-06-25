@@ -33,24 +33,29 @@ var app = angular.module('QAFlightPicker', [
                 templateUrl: 'assets/app/profile/profile.html'
             })
             .state('search', {
-                url: '/home/{userId}',
+                url: '/home/:userId',
                 templateUrl: '/assets/app/flightSearch/flightSearch.html',
                 controller: 'SearchController as search'
             })
             .state('flightSearchResults', {
-                url: '/flightSearchResults',
+                url: '/flightSearchResults/:userId',
                 templateUrl: 'assets/app/flightSearchResults/flightSearchResults.html',
                 controller: 'FlightSearchResultsController as flightSearchResults'
             })
             .state('noResults', {
-                url: '/noResults',
+                url: '/noResults/:userId',
                 templateUrl: 'assets/app/noResults/noResults.html',
                 controller: 'NoResultsController as noResults'
             })
             .state('confirmationScreen', {
-                url: '/confirmation',
+                url: '/confirmation/:userId',
                 templateUrl: '/assets/app/confirmationScreen/confirmationScreen.html',
                 controller: 'ConfirmationScreenController as confirmationScreen'
+            })
+            .state('accountOverview', {
+                url: '/accountOverview/:userId',
+                templateUrl: '/assets/app/accountOverview/accountOverview.html',
+                controller: 'AccountOverviewController as accountOverview'
             });
     });
     //.run(function ($rootScope, $document) {
@@ -72,7 +77,8 @@ var app = angular.module('QAFlightPicker', [
 
 app.factory("userService", function () {
     return {
-        user: null
+        user: null,
+        userItineraries: null
     };
 });
 
@@ -84,11 +90,13 @@ app.factory("dataPopulationService", function() {
 
 app.factory("searchResultsService", function () {
     return {
+        roundTrip: true,
         departingFlights: null,
         returningFlights: null,
         numPassengers: null,
         selectedDepartingFlight: null,
-        selectedReturningFlight: null
+        selectedReturningFlight: null,
+        totalPrice: null
     };
 });
 

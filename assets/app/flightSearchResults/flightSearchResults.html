@@ -21,7 +21,7 @@
                     </div>
                 </div>
         </div>
-        <div class="right-pane">
+        <div class="right-pane" ng-show="flightSearchResults.noReturnFlightsSearched()">
             <h4>Arriving Flights</h4>
             <div class="flight"
                  ng-repeat="flight in flightSearchResults.returningFlights"

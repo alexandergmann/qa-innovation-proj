@@ -2,22 +2,36 @@
  * Created by alexander.mann on 6/22/2015.
  */
 
-var Itinerary            = require('../models/itinerary');
+var Itinerary = require('../models/itinerary.js');
+
 module.exports.bookFlight = function(req, res) {
-
-    var returningFlightId = req.returningFlightId || null;
-    var newItinerary = new Itinerary({
-        userId:             req.userId,
-        departFlightId:     req.departingFlightId,
-        returnFlightId:     returningFlightId,
-        numberOfPassengers: req.numPassengers,
-        totalPrice:         req.totalPrice
-    });
-
-    newItinerary.save(function (err, savedIt) {
+    var newItinerary = new Itinerary();
+    newItinerary.userId = req.userId;
+    newItinerary.departFlight = req.departingFlightId;
+    newItinerary.numberOfPassengers = req.numPassengers;
+    newItinerary.totalPrice = req.totalPrice;
+    if(req.returningFlightId) {
+        newItinerary.returnFlight = req.returningFlightId;
+    }
+    newItinerary.save(function (err) {
         if(err)
             throw err;
-
-        res.send(newItinerary);
+        console.log(newItinerary)
+        res.json(newItinerary);
     })
+};
+
+module.exports.getUserItineraries = function(req, res) {
+    Itinerary.find({
+        'userId'    : req.userId
+    })
+        .populate('departFlight')
+        .populate('returnFlight')
+        .exec(function(err, itineraries) {
+            if (err)
+                return err;
+            console.log("get");
+            console.log(itineraries);
+            res.send(itineraries);
+    });
 };

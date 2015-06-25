@@ -1,0 +1,47 @@
+<html ng-app="QAFlightPicker" ng-controller="AccountOverviewController as accountOverview">
+<div class="container">
+    <h1>{{ accountOverview.user.email }} Overview</h1>
+    <div class="left-pane">
+        <h4>Itinerary</h4>
+        <div class="itinerary" ng-repeat="itinerary in accountOverview.userItineraries">
+            <div class="flight">
+                <div class="title">
+                    {{ itinerary.departFlight.departingAirportName }} <span class="fa fa-arrow-right"></span> {{ itinerary.departFlight.destinationAirportName }}
+                </div>
+                <div class="subtitle">
+                    ${{ itinerary.departFlight.price }}
+                </div>
+                <div class="subtitle">
+                    {{ itinerary.departFlight.departingDate | formatAsDateDetail }}
+                </div>
+                <div class="subtitle">
+                    {{ itinerary.departFlight.arrivingDate | formatAsDateDetail }}
+                </div>
+            </div>
+            <div class="flight" ng-show="accountOverview.hasReturnFlight(itinerary)">
+                <div class="title">
+                    {{ itinerary.returnFlight.departingAirportName }} <span class="fa fa-arrow-right"></span> {{ itinerary.returnFlight.destinationAirportName }}
+                </div>
+                <div class="subtitle">
+                    ${{ itinerary.returnFlight.price }}
+                </div>
+                <div class="subtitle">
+                    {{ itinerary.returnFlight.departingDate | formatAsDateDetail }}
+                </div>
+                <div class="subtitle">
+                    {{ itinerary.returnFlight.arrivingDate | formatAsDateDetail }}
+                </div>
+            </div>
+            <div class="title">
+                Number of Passengers: {{ itinerary.numberOfPassengers }}
+            </div>
+            <div class="title">
+                Total Price: {{ itinerary.totalPrice }}
+            </div>
+        </div>
+    </div>
+</div>
+</html>
+
+
+

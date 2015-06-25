@@ -7,12 +7,7 @@ app.controller('ConfirmationScreenController', function($scope,$state, $http, se
     this.selectedDepartFlight = searchResultsService.selectedDepartingFlight;
     this.selectedReturnFlight = searchResultsService.selectedReturningFlight;
     this.numPassengers = searchResultsService.numPassengers;
-
-    var returningTotalPrice = 0;
-    if(self.selectedReturnFlight == null) {
-        returningTotalPrice = self.selectedReturnFlight.price * self.numPassengers;
-    }
-    this.totalPrice = (self.selectedDepartFlight.price * self.numPassengers) + returningTotalPrice;
+    this.totalPrice = searchResultsService.totalPrice;
 
     this.backToResults = function() {
         searchResultsService.selectedDepartingFlight = null;
@@ -21,17 +16,38 @@ app.controller('ConfirmationScreenController', function($scope,$state, $http, se
         $state.go('flightSearchResults');
     };
 
+    this.isRoundTrip = function() {
+        return searchResultsService.roundTrip;
+    };
+
     this.saveItinerary = function() {
         $http.post('/bookFlight', {
             userId:               userService.user._id,
-            numPassengers:      self.numPassengers,
+            numPassengers:      this.numPassengers,
             departingFlightId:    self.selectedDepartFlight._id,
             returningFlightId:    self.selectedReturnFlight._id,
-            totalPrice:         self.totalPrice
+            totalPrice:         this.totalPrice
         }, {headers: {'Content-Type': 'application/json'}})
             .success(function(data) {
-                console.log("Successfully Booked!!!!");
+                searchResultsService.departingFlights = null;
+                searchResultsService.returningFlights = null;
+                searchResultsService.selectedDepartingFlight = null;
+                searchResultsService.selectedReturningFlight = null;
+                searchResultsService.numPassengers = null;
+                searchResultsService.totalPrice = null;
+                console.log('book success');
+                console.log(data);
             });
-    };
 
+        $http.post('/getUserItineraries', {
+            userId: userService.user._id
+        }, {header: { 'Content-Type': 'application/json'}})
+            .success(function(data) {
+                userService.userItineraries = data;
+                console.log('get itin sucess');
+                console.log(data);
+                $state.go('accountOverview', {userId: userService._id})
+            });
+
+        };
 });

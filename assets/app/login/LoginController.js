@@ -33,11 +33,11 @@ app.controller('LoginController', function($scope,$state, $http, userService) {
                     },
                     data: {email: self.email, password: self.password}
                 })
-                .success(function(user) {
+                .success(function(data) {
                     console.log("Is this a user?");
-                    console.log(user);
-                    userService.user = user;
-                    $state.go('search');
+                    console.log(data.user);
+                    userService.user = data.user;
+                    $state.go('search', { userId: userService.user._id });
                 })
                 .error(function(msg) {
                     self.errorMessage ="Incorrect Username or Password";

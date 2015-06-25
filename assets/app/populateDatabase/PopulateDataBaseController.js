@@ -9,7 +9,7 @@ app.controller('PopulateDatabaseController', function($scope, $state, $http, dat
             .success(function() {
                 console.log("Database Population Successful");
                 dataPopulationService.populate = "true";
-                $state.go('search');
+                $state.go('login');
             })
             .error(function() {
                 dataPopulationService.populate = null;

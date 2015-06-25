@@ -1,9 +1,9 @@
 <html ng-app="QAFlightPicker" ng-controller="ConfirmationScreenController as confirmationScreen">
 <div class="container">
     <div class="middle-pane">
-        <h1>Confirm Flight Booking</h1>
+        <h1 style="padding-right: 4.5em;">Confirm Flight Booking</h1>
         <div class="flight">
-        <h4>Departing Flight</h4>
+            <h4>Departing Flight</h4>
             <div class="title">
                 {{ confirmationScreen.selectedDepartFlight.departingAirportName }} <span class="fa fa-arrow-right"></span> {{ confirmationScreen.selectedDepartFlight.destinationAirportName }}
             </div>
@@ -17,7 +17,7 @@
                 {{ confirmationScreen.selectedDepartFlight.arrivingDate | formatAsDateDetail }}
             </div>
         </div>
-        <div class="flight">
+        <div class="flight" ng-show="confirmationScreen.isRoundTrip()">
             <h4>Arriving Flight</h4>
             <div class="title">
                 {{ confirmationScreen.selectedReturnFlight.departingAirportName }} <span class="fa fa-arrow-right"></span> {{ confirmationScreen.selectedReturnFlight.destinationAirportName }}

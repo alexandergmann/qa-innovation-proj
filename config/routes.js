@@ -14,18 +14,12 @@ module.exports = function(app, passport) {
         res.render('index.ejs'); // load the index.ejs file
     });
 
-    app.get('/loggedIn', function(req, res) {
-        res.json({user: req.user});
-    });
-
     // =====================================
     // Login ===============================
     // =====================================
-    app.post('/login', passport.authenticate('login', {
-        successRedirect : '/loggedIn', // redirect to the secure profile section
-        failureRedirect : 'notCorrect', // redirect back to the signUp page if there is an error
-        failureFlash : true // allow flash messages
-    }));
+    app.post('/login', passport.authenticate('login'), function(req, res) {
+        res.send({user: req.user});
+    });
 
     // =====================================
     // SIGNUP ==============================
@@ -33,7 +27,7 @@ module.exports = function(app, passport) {
     // process the signUp form
     app.post('/signUp', passport.authenticate('signUp', {
         successRedirect : '/', // redirect to the secure profile section
-        failureRedirect : '/' // redirect back to the signUp page if there is an error
+        failureRedirect : '/' // orredirect back to the signUp page if there is an err
     }));
 
     // =====================================
@@ -41,6 +35,7 @@ module.exports = function(app, passport) {
     // =====================================
     app.get('/logout', function(req, res) {
         req.logout();
+        res.render('index.ejs');
     });
 
     // =====================================
@@ -61,6 +56,13 @@ module.exports = function(app, passport) {
     // Book Flight =========================
     // =====================================
     app.post('/bookFlight', function(req, res) {
-        bookingController.bookFlight(req, res);
-    })
+        bookingController.bookFlight(req.body, res);
+    });
+
+    // =====================================
+    // Account Overview ====================
+    // =====================================
+    app.post('/getUserItineraries', function(req, res) {
+        bookingController.getUserItineraries(req.body, res);
+    });
 };

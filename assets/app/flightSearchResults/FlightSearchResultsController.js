@@ -2,7 +2,7 @@
  * Created by alexander.mann on 6/3/2015.
  */
 //var app = angular.module('QAFlightPicker');
-app.controller('FlightSearchResultsController', function($scope,$state, $http, searchResultsService) {
+app.controller('FlightSearchResultsController', function($scope,$state, $http, searchResultsService, userService) {
     var self = this;
 
     this.sortByPrice = function (array) {
@@ -17,6 +17,10 @@ app.controller('FlightSearchResultsController', function($scope,$state, $http, s
     this.selectedDepartingOption = {};
     this.selectedReturningOption = {};
 
+    this.noReturnFlightsSearched = function() {
+        return(searchResultsService.roundTrip)
+    };
+
     this.isDepartingOptionSelected = function(item){
         return (item._id == self.selectedDepartingOption._id);
     };
@@ -28,11 +32,13 @@ app.controller('FlightSearchResultsController', function($scope,$state, $http, s
     this.submitFlightsToConfirm = function() {
         if (self.selectedDepartingOption == null) {
             //TODO throw error here
-        } else if (self.selectedReturningOption == null && searchResultsService.returningFlights == null) {
+        } else if (self.selectedReturningOption == null && searchResultsService.roundTrip) {
             //TODO throw error here
         }
         searchResultsService.selectedDepartingFlight = self.selectedDepartingOption;
         searchResultsService.selectedReturningFlight = self.selectedReturningOption;
-        $state.go('confirmationScreen');
+        var returnPrice = self.selectedReturningOption.price || 0;
+        searchResultsService.totalPrice = (returnPrice + self.selectedDepartingOption.price) * searchResultsService.numPassengers;
+        $state.go('confirmationScreen', {userId: userService.user._id});
     };
 });

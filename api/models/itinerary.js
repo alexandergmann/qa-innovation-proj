@@ -10,9 +10,9 @@ var mongoose = require('mongoose');
 
 // define the schema for our user model
 var itinerarySchema = mongoose.Schema({
-    userId              : String,
-    departFlightId      : String,
-    returnFlightId      : String,
+    userId              : {type: mongoose.Schema.ObjectId, ref: 'User'},
+    departFlight      : {type: mongoose.Schema.ObjectId, ref: 'Flight'},
+    returnFlight      : {type: mongoose.Schema.ObjectId, ref: 'Flight'},
     numberOfPassengers  : Number,
     totalPrice          : Number
 });
