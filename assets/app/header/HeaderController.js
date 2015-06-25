@@ -25,6 +25,7 @@ app.controller('HeaderController', function($scope,$state, $http, userService, d
         $http.get('/logout')
             .success(function(data) {
                 userService.user = null;
+                userService.userItineraries = null;
                 $state.go('login');
             });
     };

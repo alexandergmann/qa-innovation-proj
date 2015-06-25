@@ -13,6 +13,9 @@
             <li class="name" ng-show="!header.userLoggedIn()">
                 <a ng-click="header.login()">Login</a>
             </li>
+            <li class="name" ng-show="header.userLoggedIn()">
+                <a ng-click="header.search()">Search For Flights</a>
+            </li>
             <li class="has-dropdown" ng-show="header.userLoggedIn()">
                 <a>My Account</a>
                 <ul class="dropdown">
