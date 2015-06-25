@@ -28,10 +28,6 @@ var app = angular.module('QAFlightPicker', [
                 templateUrl: '/assets/app/signUp/signUp.html',
                 controller: 'SignUpController as signUp'
             })
-            .state('profile', {
-                url: '/profile',
-                templateUrl: 'assets/app/profile/profile.html'
-            })
             .state('search', {
                 url: '/home/:userId',
                 templateUrl: '/assets/app/flightSearch/flightSearch.html',
@@ -58,22 +54,6 @@ var app = angular.module('QAFlightPicker', [
                 controller: 'AccountOverviewController as accountOverview'
             });
     });
-    //.run(function ($rootScope, $document) {
-    //    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
-    //        $rootScope.userId = toParams.userId || null;
-    //        $rootScope.$broadcast('userId', $rootScope.userId);
-    //    });
-    //});
-
-
-
-//app.factory('HeaderLogin', function() {
-//    var loggedIn = false;
-//    return {
-//        loggedIn: function() { return title; },
-//        setLoggedIn: function(newLogin) { loggedIn = newLogin; }
-//    };
-//}
 
 app.factory("userService", function () {
     return {

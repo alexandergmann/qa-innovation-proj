@@ -101,10 +101,8 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
             .success(function (data) {
                 console.log("Search is successful");
                 if(data.length == 0 || searchResultsService.returningFlights == null) {
-                    console.log("No results found");
                     $state.go('noResults');
                 } else {
-                    console.log("Results found");
                     searchResultsService.departingFlights = data;
                     searchResultsService.numPassengers = $scope.numPassengers;
                     $state.go('flightSearchResults', {userId: userService.user._id});

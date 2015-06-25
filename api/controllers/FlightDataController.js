@@ -52,11 +52,11 @@ module.exports.populateDB = function(req, res) {
     // define a list with 3 days because it doesn't matter to me how long the flight is
     // but who knows maybe they are okay with taking a 3 day flight from phil to lax or la to st paul
     // loop 1 to used to add days to current date
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 14; i++) {
         // loop to add flights for each airport
         _.forEach(airportsList, function(departAirport) {
             // loop to add 6 flights total for each day at each airport
-            for (var k = 0; k < 12; k++) {
+            for (var k = 0; k < 6; k++) {
                 // Stuff for flight info and date
                 var day = today.getDate() + i;
                 var departHour = _.sample(hoursOfDay);
@@ -84,7 +84,6 @@ module.exports.populateDB = function(req, res) {
                 });
 
                 flightsAdded += newFlight;
-                console.log(newFlight);
             }
         });
     }

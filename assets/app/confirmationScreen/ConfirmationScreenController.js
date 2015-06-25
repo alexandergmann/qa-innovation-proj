@@ -35,8 +35,6 @@ app.controller('ConfirmationScreenController', function($scope,$state, $http, se
                 searchResultsService.selectedReturningFlight = null;
                 searchResultsService.numPassengers = null;
                 searchResultsService.totalPrice = null;
-                console.log('book success');
-                console.log(data);
             });
 
         $http.post('/getUserItineraries', {
@@ -44,8 +42,6 @@ app.controller('ConfirmationScreenController', function($scope,$state, $http, se
         }, {header: { 'Content-Type': 'application/json'}})
             .success(function(data) {
                 userService.userItineraries = data;
-                console.log('get itin sucess');
-                console.log(data);
                 $state.go('accountOverview', {userId: userService._id})
             });
 

@@ -2,7 +2,7 @@
  * Created by alexander.mann on 6/22/2015.
  */
 
-var Itinerary = require('../models/itinerary.js');
+var Itinerary = require('../models/itinerary');
 
 module.exports.bookFlight = function(req, res) {
     var newItinerary = new Itinerary();
@@ -16,7 +16,6 @@ module.exports.bookFlight = function(req, res) {
     newItinerary.save(function (err) {
         if(err)
             throw err;
-        console.log(newItinerary)
         res.json(newItinerary);
     })
 };
@@ -30,8 +29,6 @@ module.exports.getUserItineraries = function(req, res) {
         .exec(function(err, itineraries) {
             if (err)
                 return err;
-            console.log("get");
-            console.log(itineraries);
             res.send(itineraries);
     });
 };

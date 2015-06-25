@@ -15,8 +15,6 @@ app.controller('HeaderController', function($scope,$state, $http, userService, d
         }, {header: { 'Content-Type': 'application/json'}})
             .success(function(data) {
                 userService.userItineraries = data;
-                console.log('get itin sucess');
-                console.log(data);
                 $state.go('accountOverview', { userId: userService.user._id })
             });
     };
@@ -47,7 +45,6 @@ app.controller('HeaderController', function($scope,$state, $http, userService, d
     this.isDatabasePopulated = function() {
         return dataPopulationService.populate != null;
     };
-
 });
 
 

@@ -7,13 +7,11 @@ app.controller('PopulateDatabaseController', function($scope, $state, $http, dat
     this.populateDBPost = function(){
         $http.post('/populateDatabase', {post: 'data'})
             .success(function() {
-                console.log("Database Population Successful");
                 dataPopulationService.populate = "true";
                 $state.go('login');
             })
             .error(function() {
                 dataPopulationService.populate = null;
-                console.log("Database Population Failed");
             });
         };
 });

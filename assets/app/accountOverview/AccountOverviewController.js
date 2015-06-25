@@ -3,10 +3,7 @@
  */
 app.controller('AccountOverviewController', function($scope,$state, $http, userService) {
     var self = this;
-
     this.user = userService.user.local;
-
-
     this.userItineraries = userService.userItineraries;
 
     this.hasReturnFlight = function(itinerary) {
@@ -19,6 +16,5 @@ app.controller('AccountOverviewController', function($scope,$state, $http, userS
 
     this.searchForFlights = function() {
         $state.go('search', {userId: userService.user._id})
-    }
-
+    };
 });

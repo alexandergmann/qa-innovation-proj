@@ -16,6 +16,7 @@ app.controller('FlightSearchResultsController', function($scope,$state, $http, s
     this.returningFlights = self.sortByPrice(searchResultsService.returningFlights);
     this.selectedDepartingOption = {};
     this.selectedReturningOption = {};
+    this.missingFlightSelection = false;
 
     this.noReturnFlightsSearched = function() {
         return(searchResultsService.roundTrip)
@@ -30,15 +31,16 @@ app.controller('FlightSearchResultsController', function($scope,$state, $http, s
     };
 
     this.submitFlightsToConfirm = function() {
-        if (self.selectedDepartingOption == null) {
-            //TODO throw error here
-        } else if (self.selectedReturningOption == null && searchResultsService.roundTrip) {
-            //TODO throw error here
+        if (self.selectedDepartingOption) {
+            this.missingFlightSelection = true;
+        } else if (self.selectedDepartingOption && searchResultsService.roundTrip) {
+            this.missingFlightSelection = true;
+        } else {
+            searchResultsService.selectedDepartingFlight = self.selectedDepartingOption;
+            searchResultsService.selectedReturningFlight = self.selectedReturningOption;
+            var returnPrice = self.selectedReturningOption.price || 0;
+            searchResultsService.totalPrice = (returnPrice + self.selectedDepartingOption.price) * searchResultsService.numPassengers;
+            $state.go('confirmationScreen', {userId: userService.user._id});
         }
-        searchResultsService.selectedDepartingFlight = self.selectedDepartingOption;
-        searchResultsService.selectedReturningFlight = self.selectedReturningOption;
-        var returnPrice = self.selectedReturningOption.price || 0;
-        searchResultsService.totalPrice = (returnPrice + self.selectedDepartingOption.price) * searchResultsService.numPassengers;
-        $state.go('confirmationScreen', {userId: userService.user._id});
     };
 });

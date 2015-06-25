@@ -13,30 +13,27 @@ app.controller('SignUpController', function($scope,$state, $http) {
         console.log(self.password);
         console.log(self.email);
 
-        if(self.email == null || self.password == null)
-        {
+        if(self.email == null || self.password == null) {
             self.errorMessage = "Please Enter Email and Password";
         }
-        else
-        {
-            $http(
-                {
-                    url: '/signUp',
-                    method: "POST",
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                    transformRequest: function(obj) {
-                        var str = [];
-                        for(var p in obj)
-                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                        return str.join("&");
-                    },
-                    data: {email: self.email, password: self.password}
-                })
-                .success(function(info) {
+        else {
+            $http({
+                url: '/signUp',
+                method: "POST",
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                transformRequest: function (obj) {
+                    var str = [];
+                    for (var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+                },
+                data: {email: self.email, password: self.password}
+            })
+                .success(function (info) {
                     $state.go('login');
                 })
-                .error(function(req) {
-                    self.errorMessage ="Username Already Exists";
+                .error(function (req) {
+                    self.errorMessage = "Username Already Exists";
                 });
         }
     };

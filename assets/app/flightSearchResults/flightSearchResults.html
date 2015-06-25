@@ -1,6 +1,7 @@
 <html ng-app="QAFlightPicker" ng-controller="FlightSearchResultsController as flightSearchResults">
 <div class="container">
         <h1>Flights Found</h1>
+        <small class="error" ng-show="flightSearchResults.missingFlightSelection">Missing Flight Selection</small>
         <div class="left-pane">
             <h4>Departing Flights</h4>
                 <div class="flight"
