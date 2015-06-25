@@ -42,7 +42,7 @@ app.controller('ConfirmationScreenController', function($scope,$state, $http, se
         }, {header: { 'Content-Type': 'application/json'}})
             .success(function(data) {
                 userService.userItineraries = data;
-                $state.go('accountOverview', {userId: userService._id})
+                $state.go('accountOverview', {userId: userService.user._id})
             });
 
         };

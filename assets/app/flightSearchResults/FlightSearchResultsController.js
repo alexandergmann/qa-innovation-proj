@@ -31,9 +31,9 @@ app.controller('FlightSearchResultsController', function($scope,$state, $http, s
     };
 
     this.submitFlightsToConfirm = function() {
-        if (self.selectedDepartingOption) {
+        if (!self.selectedDepartingOption) {
             this.missingFlightSelection = true;
-        } else if (self.selectedDepartingOption && searchResultsService.roundTrip) {
+        } else if (!self.selectedDepartingOption && searchResultsService.roundTrip) {
             this.missingFlightSelection = true;
         } else {
             searchResultsService.selectedDepartingFlight = self.selectedDepartingOption;

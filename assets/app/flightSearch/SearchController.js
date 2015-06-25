@@ -79,12 +79,8 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
         if(searchResultsService.roundTrip) {
             $http.post('/searchForFlights', queryObject, {headers: {'Content-Type': 'application/json'}})
                 .success(function (data) {
-                    console.log("Search is successful");
                     if(data.length == 0) {
-                        console.log("No results found");
                     } else {
-                        console.log("Results found");
-                        console.log(searchResultsService.returningFlights);
                         searchResultsService.returningFlights = data;
                     }
                 });
@@ -99,9 +95,8 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
         };
         $http.post('/searchForFlights', queryObject, {headers: {'Content-Type': 'application/json'}})
             .success(function (data) {
-                console.log("Search is successful");
                 if(data.length == 0 || searchResultsService.returningFlights == null) {
-                    $state.go('noResults');
+                    $state.go('noResults', {userId: userService.user._id});
                 } else {
                     searchResultsService.departingFlights = data;
                     searchResultsService.numPassengers = $scope.numPassengers;

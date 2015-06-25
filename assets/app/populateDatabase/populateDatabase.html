@@ -1,8 +1,15 @@
 <html ng-app="QAFlightPicker" ng-controller="PopulateDatabaseController as popDbController">
     <div class="container">
-        <div class="middle-pane">
-            <h2>Click Below To Start</h2>
+        <div class="left-pane">
+            <h2>Start Flight Picker</h2>
             <button class="large button" ng-click="popDbController.populateDBPost()">Click Here To Populate Database</button>
+        </div>
+        <div class="right-pane">
+            <h2>Clear Database</h2>
+            <button class="large button" ng-click="popDbController.clearDatabase()">Click Here To Clear Database</button>
+            <h4 ng-hide="!popDbController.areItinerariesCleared()">Itineraries Cleared</h4>
+            <h4 ng-hide="!popDbController.areFlightsCleared()">Flights Cleared</h4>
+            <h4 ng-hide="!popDbController.areUsersCleared()">Users Cleared</h4>
         </div>
     </div>
 </html>

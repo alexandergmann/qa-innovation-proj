@@ -4,6 +4,7 @@
 // app/routes.js
 var flightDataController = require('../api/controllers/FlightDataController.js');
 var bookingController = require('../api/controllers/BookingController.js');
+var databaseCleanUpController = require('../api/controllers/DatabaseCleanUpController.js');
 
 module.exports = function(app, passport) {
 
@@ -65,4 +66,25 @@ module.exports = function(app, passport) {
     app.post('/getUserItineraries', function(req, res) {
         bookingController.getUserItineraries(req.body, res);
     });
+
+    // =====================================
+    // Delete Flights in DB ================
+    // =====================================
+    app.delete('/deleteFlights', function(req, res) {
+        databaseCleanUpController.clearFlights(req, res);
+    });
+
+    // =====================================
+    // Delete Itineraries in DB ============
+    // =====================================
+    app.delete('/deleteItineraries', function(req, res) {
+        databaseCleanUpController.clearItineraries(req, res);
+    });
+
+    // =====================================
+    // Delete Users In DB ==================
+    // =====================================
+    app.delete('/deleteUsers', function(req, res){
+        databaseCleanUpController.clearUsers(req, res);
+    })
 };
