@@ -39,7 +39,7 @@ app.controller('FlightSearchResultsController', function($scope,$state, $http, s
             searchResultsService.selectedDepartingFlight = self.selectedDepartingOption;
             searchResultsService.selectedReturningFlight = self.selectedReturningOption;
             var returnPrice = self.selectedReturningOption.price || 0;
-            searchResultsService.totalPrice = (returnPrice + self.selectedDepartingOption.price) * searchResultsService.numPassengers;
+            searchResultsService.totalPrice = ((((returnPrice + self.selectedDepartingOption.price) * searchResultsService.numPassengers) * 3)/2);
             $state.go('confirmationScreen', {userId: userService.user._id});
         }
     };
