@@ -1,7 +1,7 @@
 /**
  * Created by alexander.mann on 5/19/2015.
  */
-app.controller('PopulateDatabaseController', function($scope, $state, $http, dataPopulationService) {
+app.controller('StartScreenController', function($scope, $state, $http, dataPopulationService) {
     var self = this;
     this.itinerariesCleared = false;
     this.flightsCleared = false;
@@ -20,7 +20,7 @@ app.controller('PopulateDatabaseController', function($scope, $state, $http, dat
     };
 
     this.populateDBPost = function(){
-        $http.post('/populateDatabase', {post: 'data'})
+        $http.post('/startScreen', {post: 'data'})
             .success(function() {
                 dataPopulationService.populate = "true";
                 $state.go('login');

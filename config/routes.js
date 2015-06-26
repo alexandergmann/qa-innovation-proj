@@ -49,7 +49,7 @@ module.exports = function(app, passport) {
     // =====================================
     // Populate DB =========================
     // =====================================
-    app.post('/populateDatabase', function(req, res) {
+    app.post('/startScreen', function(req, res) {
         flightDataController.populateDB(req, res);
     });
 

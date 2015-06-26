@@ -1,0 +1,15 @@
+<html ng-app="QAFlightPicker" ng-controller="StartScreenController as startScreen">
+    <div class="container">
+        <div class="left-pane">
+            <h2>Start Flight Picker</h2>
+            <button class="large button" ng-click="startScreen.populateDBPost()">Click Here To Populate Database</button>
+        </div>
+        <div class="right-pane">
+            <h2>Clear Database</h2>
+            <button class="large button" ng-click="startScreen.clearDatabase()">Click Here To Clear Database</button>
+            <h4 ng-hide="!startScreen.areItinerariesCleared()">Itineraries Cleared</h4>
+            <h4 ng-hide="!startScreen.areFlightsCleared()">Flights Cleared</h4>
+            <h4 ng-hide="!startScreen.areUsersCleared()">Users Cleared</h4>
+        </div>
+    </div>
+</html>

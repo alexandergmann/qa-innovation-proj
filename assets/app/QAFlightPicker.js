@@ -9,10 +9,10 @@ var app = angular.module('QAFlightPicker', [
     .config(function ($stateProvider, $urlRouterProvider) {
         $urlRouterProvider.otherwise('/');
         $stateProvider
-            .state('populateDatabase', {
+            .state('startScreen', {
                 url: '/',
-                templateUrl: '/assets/app/populateDatabase/populateDatabase.html',
-                controller: 'PopulateDatabaseController as popDbController'
+                templateUrl: '/assets/app/startScreen/startScreen.html',
+                controller: 'StartScreenController as startScreen'
             })
             .state('login', {
                 url: '/login',
