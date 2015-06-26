@@ -34,3 +34,11 @@ node server.js
 
 
 open web browser and navigate to http://localhost:27017
+
+List of Known Bugs:
+
+Miscalculation on TotalPrice for Itineraries
+Will search + book flights with 0 passengers
+Will try to search for flights in the past
+Flights may have a landing date before the take off date
+You may partially use the site without logging in as long as you know a userId
