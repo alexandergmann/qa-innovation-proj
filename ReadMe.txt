@@ -3,6 +3,10 @@ Install node.js
 
 Install Mongodb.
 
+Create the following Directories: 
+
+C:\data\db
+
 make sure these are in your path(system variable):
 C:\Program Files\nodejs\;
 
