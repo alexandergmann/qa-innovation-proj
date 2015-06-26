@@ -3,8 +3,8 @@
  */
 // app/routes.js
 var flightDataController = require('../api/controllers/FlightDataController.js');
-var bookingController = require('../api/controllers/BookingController.js');
-var databaseCleanUpController = require('../api/controllers/DatabaseCleanUpController.js');
+var itineraryController = require('../api/controllers/ItineraryController.js');
+var userController = require('../api/controllers/UserController.js');
 
 module.exports = function(app, passport) {
 
@@ -57,34 +57,34 @@ module.exports = function(app, passport) {
     // Book Flight =========================
     // =====================================
     app.post('/bookFlight', function(req, res) {
-        bookingController.bookFlight(req.body, res);
+        itineraryController.bookFlight(req.body, res);
     });
 
     // =====================================
     // Account Overview ====================
     // =====================================
     app.post('/getUserItineraries', function(req, res) {
-        bookingController.getUserItineraries(req.body, res);
+        itineraryController.getUserItineraries(req.body, res);
     });
 
     // =====================================
     // Delete Flights in DB ================
     // =====================================
     app.delete('/deleteFlights', function(req, res) {
-        databaseCleanUpController.clearFlights(req, res);
+        flightDataController.clearFlights(req, res);
     });
 
     // =====================================
     // Delete Itineraries in DB ============
     // =====================================
     app.delete('/deleteItineraries', function(req, res) {
-        databaseCleanUpController.clearItineraries(req, res);
+        itineraryController.clearItineraries(req, res);
     });
 
     // =====================================
     // Delete Users In DB ==================
     // =====================================
     app.delete('/deleteUsers', function(req, res){
-        databaseCleanUpController.clearUsers(req, res);
+        userController.clearUsers(req, res);
     })
 };

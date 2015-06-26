@@ -100,3 +100,12 @@ module.exports = function(passport) {
         }
     ));
 };
+
+
+module.exports.clearUsers = function(req, res) {
+    User.remove({}, function(err) {
+        if(err)
+            return(err);
+        res.send({message: 'success'});
+    });
+};

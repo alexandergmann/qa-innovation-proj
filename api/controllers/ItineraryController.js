@@ -32,3 +32,11 @@ module.exports.getUserItineraries = function(req, res) {
             res.send(itineraries);
     });
 };
+
+module.exports.clearItineraries = function(req, res) {
+    Itinerary.remove({}, function(err) {
+        if(err)
+            return(err);
+        res.send({message: 'success'});
+    });
+};

@@ -89,3 +89,11 @@ module.exports.populateDB = function(req, res) {
     }
     res.json(flightsAdded);
 };
+
+module.exports.clearFlights = function(req, res) {
+    Flight.remove({}, function(err) {
+        if(err)
+            return err;
+        res.send({message: 'success'});
+    });
+};
