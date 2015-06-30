@@ -4,12 +4,12 @@
             <li class="columns small-6 left ">
                 <h3><span class="fa fa-plane"></span> Flying From</h3>
                 <select id="airportFrom" class="small customDrop" ng-model="search.departAirport">
-                    <option value=""></option>
+                    <option value="" ng-hide="true" disabled selected>Select Departing Airport</option>
                     <option ng-repeat="departAirport in search.airportList">{{ departAirport.code }}</option>
                 </select>
                 <h3><span class="fa fa-plane"></span> Flying To</h3>
                 <select id="airportTo" class="small customDrop" ng-model="search.arriveAirport">
-                    <option value=""></option>
+                    <option value="" ng-hide="true" disabled selected>Select Destination Airport</option>
                     <option ng-repeat="arriveAirport in search.airportList">{{ arriveAirport.code }}</option>
                 </select>
                 <span></span>
@@ -22,11 +22,14 @@
             </li>
             <li class="columns small-6 left">
                 <h3><span class="fa fa-calendar departDP" ng-click="search.departDatePicker()"></span> Departure Date</h3>
-                <input type="text" class="departDP" value="02-16-2012" id="departDP" ng-model="search.departDate">
-                <h3 class="retDP"><span class="fa fa-calendar retDP"  ng-click="search.retDatePicker()"></span> Returning Date</h3>
-                <input type="text" class="retDP" value="02-16-2012" id="retDP" ng-model="search.retDate">
+                <input type="text" class="departDP" id="departDP" ng-model="search.departDate" placeholder="Select Departure Date">
+
+                <h3 class="returnDP"><span class="fa fa-calendar returnDP"  ng-click="search.retDatePicker()"></span> Returning Date</h3>
+                <input type="text" class="returnDP" id="returnDP" ng-model="search.retDate" placeholder="Select Returning Date">
+
                 <label>Number of Passengers</label>
                 <select id="numPassengers" class="small smallDrop" ng-model="numPassengers" ng-options='num for num in search.ints'>
+                    <option disabled selected="selected" value="">#</option>
                 </select>
                 <span></span>
             </li>

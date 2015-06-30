@@ -4,32 +4,40 @@
     <div class="left-pane">
         <h4>Itinerary</h4>
         <div class="itinerary" ng-repeat="itinerary in accountOverview.userItineraries">
+            <h3>Departure Flight</h3>
             <div class="flight">
                 <div class="title">
                     {{ itinerary.departFlight.departingAirportName }} <span class="fa fa-arrow-right"></span> {{ itinerary.departFlight.destinationAirportName }}
                 </div>
                 <div class="subtitle">
-                    ${{ itinerary.departFlight.price }}
+                    Price: ${{ itinerary.departFlight.price }}
                 </div>
                 <div class="subtitle">
-                    {{ itinerary.departFlight.departingDate | formatAsDateDetail }}
+                    Departure: {{ itinerary.departFlight.departingDate | formatAsDateDetail }}
                 </div>
                 <div class="subtitle">
-                    {{ itinerary.departFlight.arrivingDate | formatAsDateDetail }}
+                    Arrival: {{ itinerary.departFlight.arrivingDate | formatAsDateDetail }}
+                </div>
+                <div class="subtitle">
+                    Total Flight Time: {{ itinerary.departFlight.arrivingDate | formatTimeDifference:itinerary.departFlight.departingDate}}
                 </div>
             </div>
+            <h3 ng-show="accountOverview.hasReturnFlight(itinerary)">Return Flight</h3>
             <div class="flight" ng-show="accountOverview.hasReturnFlight(itinerary)">
                 <div class="title">
                     {{ itinerary.returnFlight.departingAirportName }} <span class="fa fa-arrow-right"></span> {{ itinerary.returnFlight.destinationAirportName }}
                 </div>
                 <div class="subtitle">
-                    ${{ itinerary.returnFlight.price }}
+                    Price: ${{ itinerary.returnFlight.price }}
                 </div>
                 <div class="subtitle">
-                    {{ itinerary.returnFlight.departingDate | formatAsDateDetail }}
+                    Departure: {{ itinerary.returnFlight.departingDate | formatAsDateDetail }}
                 </div>
                 <div class="subtitle">
-                    {{ itinerary.returnFlight.arrivingDate | formatAsDateDetail }}
+                    Arrival: {{ itinerary.returnFlight.arrivingDate | formatAsDateDetail }}
+                </div>
+                <div class="subtitle">
+                    Total Flight Time: {{ itinerary.returnFlight.arrivingDate | formatTimeDifference:itinerary.returnFlight.departingDate}}
                 </div>
             </div>
             <div class="title">

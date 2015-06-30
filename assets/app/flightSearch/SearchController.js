@@ -25,38 +25,38 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
     };
 
     // Define both Date Picker Objects
-    var departDP = $('#departDP').fdatepicker({
+    var retDP = $('#returnDP').fdatepicker({
         format: 'mm-dd-yyyy'
     }).on('changeDate', function(ev) {
-        var newDate = new Date(ev.date);
-        departDP.update(newDate);
-        departDP.hide();
-        self.departDateObject = self.convertToUTC(newDate);
-    }).data('datepicker');
-
-    var retDP =  $('#retDP').fdatepicker({
-        format: 'mm-dd-yyyy'
-    }).on('changeDate', function(ev) {
-        var newDate = new Date(ev.date);
-        retDP.update(newDate);
+        var newReturnDate = new Date(ev.date);
+        retDP.update(newReturnDate);
         retDP.hide();
-        self.returningDateObject = self.convertToUTC(newDate);
+        self.returnDateObject = self.convertToUTC(newReturnDate);
     }).data('datepicker');
 
-    this.departDatePicker = function() {
-        departDP.show();
-    };
+    var departDP =  $('#departDP').fdatepicker({
+        format: 'mm-dd-yyyy'
+    }).on('changeDate', function(ev) {
+        var newDepartDate = new Date(ev.date);
+        departDP.update(newDepartDate);
+        retDP.hide();
+        self.departDateObject = self.convertToUTC(newDepartDate);
+    }).data('datepicker');
 
     this.retDatePicker = function() {
         retDP.show();
     };
 
+    this.departDatePicker = function() {
+        departDP.show();
+    };
+
     this.isRoundTrip = function() {
         if (self.flightType == "roundTrip") {
-            $('.retDP').css('visibility', 'visible');
+            $('.returnDP').css('visibility', 'visible');
             searchResultsService.roundTrip = true;
         } else {
-            $('.retDP').css('visibility', 'hidden');
+            $('.returnDP').css('visibility', 'hidden');
             searchResultsService.roundTrip = false;
         }
     };
@@ -65,13 +65,13 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
         if(self.departDateObject == null && self.departAirport == null && self.arriveAirport == null) {
             // TODO add error message
             console.log("Info Required for Searching is missing");
-        } else if(self.flightType == "roundTrip" && self.returningDateObject == null) {
+        } else if(self.flightType == "roundTrip" && self.returnDateObject == null) {
             // TODO add error message
             console.log("Returning Date is required");
         }
         // set up queryObject for returning flights
         var queryObject = {
-            dateToSearch: self.returningDateObject,
+            dateToSearch: self.returnDateObject,
             departingAirport: self.arriveAirport,
             arrivingAirport: self.departAirport
         };
@@ -84,15 +84,14 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
                         searchResultsService.returningFlights = data;
                     }
                 });
-
         } else {
             searchResultsService.returningFlights = 1;
         }
-        queryObject = {
-            dateToSearch: self.departDateObject,
-            departingAirport: self.departAirport,
-            arrivingAirport: self.arriveAirport
-        };
+
+        queryObject.dateToSearch = self.departDateObject;
+        queryObject.departingAirport = self.departAirport;
+        queryObject.arrivingAirport =  self.arriveAirport;
+
         $http.post('/searchForFlights', queryObject, {headers: {'Content-Type': 'application/json'}})
             .success(function (data) {
                 if(data.length == 0 || searchResultsService.returningFlights == null) {

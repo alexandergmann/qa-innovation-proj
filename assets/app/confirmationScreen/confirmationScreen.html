@@ -1,20 +1,23 @@
 <html ng-app="QAFlightPicker" ng-controller="ConfirmationScreenController as confirmationScreen">
 <div class="container">
     <div class="middle-pane">
-        <h1 style="padding-right: 4.5em;">Confirm Flight Booking</h1>
+        <h1>Confirm Flight Booking</h1>
         <div class="flight">
             <h4>Departing Flight</h4>
             <div class="title">
                 {{ confirmationScreen.selectedDepartFlight.departingAirportName }} <span class="fa fa-arrow-right"></span> {{ confirmationScreen.selectedDepartFlight.destinationAirportName }}
             </div>
             <div class="subtitle">
-                ${{ confirmationScreen.selectedDepartFlight.price }}
+                Price: ${{ confirmationScreen.selectedDepartFlight.price }}
             </div>
             <div class="subtitle">
-                {{ confirmationScreen.selectedDepartFlight.departingDate | formatAsDateDetail }}
+                Arrival: {{ confirmationScreen.selectedDepartFlight.departingDate | formatAsDateDetail }}
             </div>
             <div class="subtitle">
-                {{ confirmationScreen.selectedDepartFlight.arrivingDate | formatAsDateDetail }}
+                Departure: {{ confirmationScreen.selectedDepartFlight.arrivingDate | formatAsDateDetail }}
+            </div>
+            <div class="subtitle">
+                Total Flight Time: {{ confirmationScreen.selectedDepartFlight.arrivingDate | formatTimeDifference:confirmationScreen.selectedDepartFlight.departingDate}}
             </div>
         </div>
         <div class="flight" ng-show="confirmationScreen.isRoundTrip()">
@@ -30,6 +33,9 @@
             </div>
             <div class="subtitle">
                 {{ confirmationScreen.selectedReturnFlight.arrivingDate | formatAsDateDetail }}
+            </div>
+            <div class="subtitle">
+                Total Flight Time: {{ confirmationScreen.selectedReturnFlight.arrivingDate | formatTimeDifference:confirmationScreen.selectedReturnFlight.departingDate}}
             </div>
         </div>
         <div class="flight">

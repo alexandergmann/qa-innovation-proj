@@ -3,8 +3,9 @@
  */
 
 var Flight = require('../models/flight');
+var moment = require('moment');
 
-var hoursOfDay = [ 2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 15, 16, 18, 19, 21, 22 ];
+var hoursOfDay = [ 2, 4, 5, 6, 8, 9, 10 ];
 var minutesOfDay = [5, 10, 15, 30, 40, 45, 55];
 var prices = [ 220, 350, 180, 70, 500, 1500, 290, 926, 782, 321, 119 ];
 var airportsList = {
@@ -15,16 +16,16 @@ var airportsList = {
 
 var generateRandomDate = function(originalDate) {
     var daysList = [];
-    for (var i=0; i < 4; i++) {
         var randomHour = _.sample(hoursOfDay);
         var randomMinutes = _.sample(minutesOfDay);
-        var day = originalDate.getDate() + i;
-        var dateToAdd = new Date(originalDate.getFullYear(), originalDate.getMonth(),day, randomHour, randomMinutes);
-        daysList.push(dateToAdd);
-    }
+        var dateToAdd = moment(originalDate).add(randomHour, 'hours').add(randomMinutes, 'minutes');
+        //var day = originalDate.getDate() + i;
+        //var dateToAdd = new Date(originalDate.getFullYear(), originalDate.getMonth(),day, randomHour, randomMinutes);
+       // daysList.push(dateToAdd);
+
     var randomDayFromList = _.sample(daysList);
 
-    return randomDayFromList;
+    return dateToAdd;
 };
 
 module.exports.searchForFlights = function(req, res) {
@@ -65,7 +66,7 @@ module.exports.populateDB = function(req, res) {
 
                 // define date and new flight object
                 var departDate = new Date(today.getFullYear(), today.getMonth(), day, departHour, departMinute);
-                var arrivingDate = generateRandomDate(today);
+                var arrivingDate = generateRandomDate(departDate);
 
                 // add stuff to new flight object
                 var newFlight = new Flight();

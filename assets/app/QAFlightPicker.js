@@ -93,3 +93,13 @@ app.filter("formatAsDateDetail", function () {
         return (valueAsDate).format("MMMM Do YYYY, h:mm A");
     };
 });
+
+app.filter("formatTimeDifference", function() {
+    return function(item1, item2) {
+        var difference = moment(item2).subtract(moment(item1));
+        var hours = (difference).format('h');
+        var minutes = (difference).format('m');
+        var returnFormattedString = hours + " hour(s) " + minutes + " minute(s)";
+        return returnFormattedString
+    }
+});

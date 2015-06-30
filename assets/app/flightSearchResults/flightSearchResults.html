@@ -2,49 +2,38 @@
 <div class="container">
         <h1>Flights Found</h1>
         <small class="error" ng-show="flightSearchResults.missingFlightSelection">Missing Flight Selection</small>
-        <div class="left-pane">
-            <h4>Departing Flights</h4>
+        <div class="left-pane list">
+            <h4 ng-show="flightSearchResults.selectingDepartingFlight()">Departing Flights</h4>
+            <h4 ng-show="!flightSearchResults.selectingDepartingFlight()">Returning Flights</h4>
                 <div class="flight"
-                     ng-repeat="flight in flightSearchResults.departingFlights"
-                     ng-class="{ selected: flightSearchResults.isDepartingOptionSelected(flight) }"
-                     ng-click="flightSearchResults.selectedDepartingOption = flight;">
+                     ng-repeat="flight in flightSearchResults.getFlightsToDisplay()"
+                     ng-class="{ selected: flightSearchResults.isSelectedFlight(flight) }"
+                     ng-click="flightSearchResults.selectedFlight = flight;">
                     <div class="title">
                         {{ flight.departingAirportName }} <span class="fa fa-arrow-right"></span> {{ flight.destinationAirportName }}
                     </div>
                     <div class="subtitle">
-                        ${{ flight.price }}
+                        Price: ${{ flight.price }}
                     </div>
                     <div class="subtitle">
-                        {{ flight.departingDate | formatAsDateDetail }}
+                        Departure: {{ flight.departingDate | formatAsDateDetail }}
                     </div>
                     <div class="subtitle">
-                        {{ flight.arrivingDate | formatAsDateDetail }}
+                        Arrival: {{ flight.arrivingDate | formatAsDateDetail }}
+                    </div>
+                    <div class="subtitle">
+                        Total Flight Time: {{ flight.arrivingDate | formatTimeDifference:flight.departingDate}}
                     </div>
                 </div>
-        </div>
-        <div class="right-pane" ng-show="flightSearchResults.noReturnFlightsSearched()">
-            <h4>Arriving Flights</h4>
-            <div class="flight"
-                 ng-repeat="flight in flightSearchResults.returningFlights"
-                 ng-class="{ selected: flightSearchResults.isReturningOptionSelected(flight) }"
-                 ng-click="flightSearchResults.selectedReturningOption = flight;">
-                <div class="title">
-                    {{ flight.departingAirportName }} <span class="fa fa-arrow-right"></span> {{ flight.destinationAirportName }}
-                </div>
-                <div class="subtitle">
-                    ${{ flight.price }}
-                </div>
-                <div class="subtitle">
-                    {{ flight.departingDate | formatAsDateDetail }}
-                </div>
-                <div class="subtitle">
-                    {{ flight.arrivingDate | formatAsDateDetail }}
-                </div>
-            </div>
         </div>
     <footer class="top-bar footer">
         <section class="top-bar-section footer">
-            <ul class="right submitBtn">
+            <ul class="left">
+                <li class="name" ng-show="!flightSearchResults.selectingDepartingFlight()">
+                    <a ng-click="flightSearchResults.backToDepartingFlights()">Back</a>
+                </li>
+            </ul>
+            <ul class="right">
                 <li class="name">
                     <a ng-click="flightSearchResults.submitFlightsToConfirm()">Submit Flight(s)</a>
                 </li>
