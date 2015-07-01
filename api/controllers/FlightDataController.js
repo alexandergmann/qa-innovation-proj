@@ -63,8 +63,8 @@ module.exports.populateDB = function(req, res) {
 
                 // add stuff to new flight object
                 var newFlight = new Flight();
-                newFlight.destinationAirportName = departAirport.name;
-                newFlight.departingAirportName = arrivingAirport.name;
+                newFlight.destinationAirportName = arrivingAirport.name;
+                newFlight.departingAirportName = departAirport.name;
                 newFlight.departingDate = departDate;
                 newFlight.arrivingDate = arrivingDate;
                 newFlight.departingAirport = departAirport.code;

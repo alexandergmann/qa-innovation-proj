@@ -10,10 +10,7 @@ app.controller('SignUpController', function($scope,$state, $http) {
     };
 
     this.postSignUp = function(){
-        console.log(self.password);
-        console.log(self.email);
-
-        if(self.email == null || self.password == null) {
+         if(self.email == null || self.password == null) {
             self.errorMessage = "Please Enter Email and Password";
         }
         else {
