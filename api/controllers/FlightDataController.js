@@ -10,8 +10,8 @@ var minutesOfDay = [5, 10, 15, 30, 40, 45, 55];
 var prices = [ 220, 350, 180, 70, 500, 1500, 290, 926, 782, 321, 119 ];
 var airportsList = {
     StPaulMN: {code: "MSP", name: "Saint Paul, Minnesota (MSP)"},
-    PhilPA: {code: "PHL", name: "Philadelphia, Pennsylvania (PHL)"},
-    LACA: {code: "LAX", name: "Los Angeles, California (LAX)"}
+    PhilPA: {code: "PHL", name: "Philadelphia, Pensylvania (PHL)"},
+    LACA: {code: "LAX", name: "Los Angels, California (LAX)"}
 };
 
 var generateRandomDate = function(originalDate) {
