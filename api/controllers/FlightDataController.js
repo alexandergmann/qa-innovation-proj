@@ -15,12 +15,9 @@ var airportsList = {
 };
 
 var generateRandomDate = function(originalDate) {
-    var daysList = [];
-        var randomHour = _.sample(hoursOfDay);
-        var randomMinutes = _.sample(minutesOfDay);
-        var dateToAdd = moment(originalDate).add(randomHour, 'hours').add(randomMinutes, 'minutes');
-
-
+    var randomHour = _.sample(hoursOfDay);
+    var randomMinutes = _.sample(minutesOfDay);
+    var dateToAdd = moment(originalDate).add(randomHour, 'hours').add(randomMinutes, 'minutes');
     return dateToAdd;
 };
 
