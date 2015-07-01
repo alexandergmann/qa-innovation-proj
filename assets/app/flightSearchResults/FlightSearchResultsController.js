@@ -5,7 +5,6 @@
 app.controller('FlightSearchResultsController', function($scope,$state, $http, searchResultsService, userService) {
     var self = this;
     this.selectedFlight = {};
-    this.selectedReturningOption = {};
     this.missingFlightSelection = false;
 
     this.sortByPrice = function (array) {
@@ -16,7 +15,7 @@ app.controller('FlightSearchResultsController', function($scope,$state, $http, s
     };
 
     this.getFlightsToDisplay = function() {
-        if (searchResultsService.selectedDepartingFlight) {
+        if (!searchResultsService.selectedDepartingFlight) {
             return self.sortByPrice(searchResultsService.departingFlights);
         } else {
             return self.sortByPrice(searchResultsService.returningFlights);
@@ -44,15 +43,22 @@ app.controller('FlightSearchResultsController', function($scope,$state, $http, s
     this.submitFlightsToConfirm = function() {
         if (angular.equals({},self.selectedFlight)) {
             this.missingFlightSelection = true;
-        } else if (searchResultsService.roundTrip && !searchResultsService.selectedDepartingFlight) {
+        } else if (searchResultsService.roundTrip) {
+            if(!searchResultsService.selectedDepartingFlight) {
                 self.missingFlightSelection = false;
                 searchResultsService.selectedDepartingFlight = self.selectedFlight;
                 $state.go('flightSearchResults', {userId: userService.user._id});
-        } else {
+            } else {
                 searchResultsService.selectedReturningFlight = self.selectedFlight;
-                var returnPrice = searchResultsService.selectedReturningFlight.price || 0;
+                var returnPrice = searchResultsService.selectedReturningFlight.price;
                 searchResultsService.totalPrice = ((((returnPrice + searchResultsService.selectedDepartingFlight.price) * searchResultsService.numPassengers) * 3)/2);
                 $state.go('confirmationScreen', {userId: userService.user._id});
+            }
+        } else {
+            searchResultsService.selectedDepartingFlight = self.selectedFlight;
+            var returnPrice = 0;
+            searchResultsService.totalPrice = ((((returnPrice + searchResultsService.selectedDepartingFlight.price) * searchResultsService.numPassengers) * 3)/2);
+            $state.go('confirmationScreen', {userId: userService.user._id});
         }
     };
 });

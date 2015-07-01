@@ -11,7 +11,7 @@ var prices = [ 220, 350, 180, 70, 500, 1500, 290, 926, 782, 321, 119 ];
 var airportsList = {
     StPaulMN: {code: "MSP", name: "Saint Paul, Minnesota (MSP)"},
     PhilPA: {code: "PHL", name: "Philadelphia, Pensylvania (PHL)"},
-    LACA: {code: "LAX", name: "Los Angels, California (LAX)"}
+    LACA: {code: "LAX", name: "Los Angles, California (LAX)"}
 };
 
 var generateRandomDate = function(originalDate) {
@@ -19,11 +19,7 @@ var generateRandomDate = function(originalDate) {
         var randomHour = _.sample(hoursOfDay);
         var randomMinutes = _.sample(minutesOfDay);
         var dateToAdd = moment(originalDate).add(randomHour, 'hours').add(randomMinutes, 'minutes');
-        //var day = originalDate.getDate() + i;
-        //var dateToAdd = new Date(originalDate.getFullYear(), originalDate.getMonth(),day, randomHour, randomMinutes);
-       // daysList.push(dateToAdd);
 
-    var randomDayFromList = _.sample(daysList);
 
     return dateToAdd;
 };

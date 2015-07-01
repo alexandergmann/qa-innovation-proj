@@ -21,13 +21,18 @@ app.controller('ConfirmationScreenController', function($scope,$state, $http, se
     };
 
     this.saveItinerary = function() {
-        $http.post('/bookFlight', {
+        var queryObject = {
             userId:               userService.user._id,
             numPassengers:      this.numPassengers,
             departingFlightId:    self.selectedDepartFlight._id,
-            returningFlightId:    self.selectedReturnFlight._id,
             totalPrice:         this.totalPrice
-        }, {headers: {'Content-Type': 'application/json'}})
+        };
+
+        if(self.selectedReturnFlight != null) {
+            queryObject.returningFlightId = self.selectedReturnFlight._id;
+        }
+
+        $http.post('/bookFlight', queryObject, {headers: {'Content-Type': 'application/json'}})
             .success(function(data) {
                 searchResultsService.departingFlights = null;
                 searchResultsService.returningFlights = null;

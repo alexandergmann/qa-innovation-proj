@@ -12,8 +12,8 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
     this.ints = [ 1, 2, 3, 4, 5, 6 ];
     this.airportList = {
         StPaulMN: {code: "MSP", name: "Saint Paul, Minnesota (MSP)"},
-        PhilPA: {code: "PHL", name: "Philadelphia, Pennsylvania (PHL)"},
-        LACA: {code: "LAX", name: "Los Angeles, California (LAX)"}
+        PhilPA: {code: "PHL", name: "Philadelphia, Pensylvania (PHL)"},
+        LACA: {code: "LAX", name: "Los Angles, California (LAX)"}
     };
 
     this.convertToUTC = function (dateToConvert) {
@@ -25,13 +25,13 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
     };
 
     // Define both Date Picker Objects
-    var retDP = $('#returnDP').fdatepicker({
+    var returnDP = $('#returnDP').fdatepicker({
         format: 'mm-dd-yyyy'
     }).on('changeDate', function(ev) {
         var newReturnDate = new Date(ev.date);
-        retDP.update(newReturnDate);
-        retDP.hide();
-        self.returnDateObject = self.convertToUTC(newReturnDate);
+        returnDP.update(newReturnDate);
+        returnDP.hide();
+        self.returningDateObject = self.convertToUTC(newReturnDate);
     }).data('datepicker');
 
     var departDP =  $('#departDP').fdatepicker({
@@ -39,12 +39,12 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
     }).on('changeDate', function(ev) {
         var newDepartDate = new Date(ev.date);
         departDP.update(newDepartDate);
-        retDP.hide();
+        departDP.hide();
         self.departDateObject = self.convertToUTC(newDepartDate);
     }).data('datepicker');
 
     this.retDatePicker = function() {
-        retDP.show();
+        returnDP.show();
     };
 
     this.departDatePicker = function() {
@@ -62,39 +62,37 @@ app.controller('SearchController', function($scope,$state, $http, searchResultsS
     };
 
     this.submitSearch = function() {
-        if(self.departDateObject == null && self.departAirport == null && self.arriveAirport == null) {
+        if(self.departDateObject == null && self.departAirportSelection == "" && self.arriveAirportSelection == "") {
             // TODO add error message
             console.log("Info Required for Searching is missing");
-        } else if(self.flightType == "roundTrip" && self.returnDateObject == null) {
+        } else if(self.flightType == "roundTrip" && self.returningDateObject == null) {
             // TODO add error message
             console.log("Returning Date is required");
         }
         // set up queryObject for returning flights
         var queryObject = {
-            dateToSearch: self.returnDateObject,
-            departingAirport: self.arriveAirport,
-            arrivingAirport: self.departAirport
+            dateToSearch: self.returningDateObject,
+            departingAirport: self.arriveAirportSelection,
+            arrivingAirport: self.departAirportSelection
         };
 
-        if(searchResultsService.roundTrip) {
-            $http.post('/searchForFlights', queryObject, {headers: {'Content-Type': 'application/json'}})
+        var queryObject2 = {
+            dateToSearch: self.departDateObject,
+            departingAirport: self.departAirportSelection,
+            arrivingAirport: self.arriveAirportSelection
+        };
+
+        $http.post('/searchForFlights', queryObject, {headers: {'Content-Type': 'application/json'}})
                 .success(function (data) {
                     if(data.length == 0) {
                     } else {
                         searchResultsService.returningFlights = data;
                     }
                 });
-        } else {
-            searchResultsService.returningFlights = 1;
-        }
 
-        queryObject.dateToSearch = self.departDateObject;
-        queryObject.departingAirport = self.departAirport;
-        queryObject.arrivingAirport =  self.arriveAirport;
-
-        $http.post('/searchForFlights', queryObject, {headers: {'Content-Type': 'application/json'}})
+        $http.post('/searchForFlights', queryObject2, {headers: {'Content-Type': 'application/json'}})
             .success(function (data) {
-                if(data.length == 0 || searchResultsService.returningFlights == null) {
+                if(data.length == 0) {
                     $state.go('noResults', {userId: userService.user._id});
                 } else {
                     searchResultsService.departingFlights = data;

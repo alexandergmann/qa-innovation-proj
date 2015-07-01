@@ -3,12 +3,12 @@
             <h1>Destination and Date Information</h1>
             <li class="columns small-6 left ">
                 <h3><span class="fa fa-plane"></span> Flying From</h3>
-                <select id="airportFrom" class="small customDrop" ng-model="search.departAirport">
+                <select id="airportFrom" class="small customDrop" ng-model="search.arriveAirportSelection">
                     <option value="" ng-hide="true" disabled selected>Select Departing Airport</option>
                     <option ng-repeat="departAirport in search.airportList">{{ departAirport.code }}</option>
                 </select>
                 <h3><span class="fa fa-plane"></span> Flying To</h3>
-                <select id="airportTo" class="small customDrop" ng-model="search.arriveAirport">
+                <select id="airportTo" class="small customDrop" ng-model="search.departAirportSelection">
                     <option value="" ng-hide="true" disabled selected>Select Destination Airport</option>
                     <option ng-repeat="arriveAirport in search.airportList">{{ arriveAirport.code }}</option>
                 </select>
@@ -29,7 +29,7 @@
 
                 <label>Number of Passengers</label>
                 <select id="numPassengers" class="small smallDrop" ng-model="numPassengers" ng-options='num for num in search.ints'>
-                    <option disabled selected="selected" value="">#</option>
+                    <option ng-hide="true" disabled selected="selected" value="">#</option>
                 </select>
                 <span></span>
             </li>
